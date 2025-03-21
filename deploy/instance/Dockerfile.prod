@@ -1,0 +1,8 @@
+FROM your-org-clients:latest AS builder
+
+RUN npm run build
+
+FROM caddy:2.9.1
+
+COPY --from=builder /app/clients/dist /srv
+COPY ./deploy/instance/remote-assets/config /etc/caddy/

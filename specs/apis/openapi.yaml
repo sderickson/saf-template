@@ -1,0 +1,45 @@
+# openapi.yaml
+openapi: 3.0.0
+info:
+  title: Your Product's API
+  version: "1.0.0"
+  description: The API used internally by web clients.
+servers:
+  - url: http://api.docker.localhost/
+    description: Development server
+
+paths:
+  /auth/register:
+    post:
+      $ref: "./routes/auth.yaml#/register/post"
+  /auth/login:
+    post:
+      $ref: "./routes/auth.yaml#/login/post"
+  /auth/logout:
+    post:
+      $ref: "./routes/auth.yaml#/logout/post"
+  /auth/verify:
+    get:
+      $ref: "./routes/auth.yaml#/verify/get"
+  /call-series:
+    get:
+      $ref: "./routes/call-series.yaml#/get"
+    post:
+      $ref: "./routes/call-series.yaml#/post"
+  /call-series/{id}:
+    get:
+      $ref: "./routes/call-series.yaml#/~1{id}/get"
+    put:
+      $ref: "./routes/call-series.yaml#/~1{id}/put"
+    delete:
+      $ref: "./routes/call-series.yaml#/~1{id}/delete"
+  /call-series/{id}/test-call:
+    post:
+      $ref: "./routes/call-series.yaml#/~1{id}~1test-call/post"
+
+components:
+  schemas:
+    User:
+      $ref: "./schemas/user.yaml"
+    CallSeries:
+      $ref: "./schemas/call-series.yaml"

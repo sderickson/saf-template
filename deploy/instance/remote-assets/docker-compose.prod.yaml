@@ -1,0 +1,62 @@
+services:
+  caddy:
+    env_file:
+      - .env.prod
+    cap_add:
+      - NET_ADMIN
+    image: ghcr.io/sderickson/your-org-caddy:latest
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      - DISABLE_VITE_DEV_SERVER=#
+      - DOMAIN=${DOMAIN}
+      - PROTOCOL=${PROTOCOL}
+    volumes:
+      - ./config:/etc/caddy/
+      - caddy_data:/data
+      - caddy_config:/config
+    restart: unless-stopped
+
+  services-api:
+    env_file:
+      - .env.prod
+    image: ghcr.io/sderickson/your-org-services-api:latest
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - PROTOCOL=${PROTOCOL}
+      - DOMAIN=${DOMAIN}
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 128M
+    memswap_limit: 2G
+    volumes:
+      - /opt/app/dbs/main/data:/app/dbs/main/data
+
+  services-auth:
+    env_file:
+      - .env.prod
+    image: ghcr.io/sderickson/saf-services-auth:latest
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - PROTOCOL=${PROTOCOL}
+      - DOMAIN=${DOMAIN}
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 128M
+    memswap_limit: 2G
+    volumes:
+      - /opt/app/saf-2025/dbs/auth/data:/app/dbs/auth/data
+
+volumes:
+  caddy_data:
+  caddy_config:

@@ -1,0 +1,21 @@
+{
+  "name": "@your-org/your-product",
+  "description": "TODO",
+  "scripts": {
+    "test": "npm run test --workspaces --if-present --parallel",
+    "test:coverage": "npm run test:coverage --workspaces --if-present --parallel"
+  },
+  "author": "TODO",
+  "workspaces": [
+    "clients",
+    "dbs/*",
+    "integrations/*",
+    "saf-2025/lib/*",
+    "services/*",
+    "specs/*",
+    "tools"
+  ],
+  "engines": {
+    "node": ">=22"
+  }
+}

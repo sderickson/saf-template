@@ -1,0 +1,53 @@
+{
+  "name": "@your-org/clients",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "format": "prettier --write .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "ts:check": "vue-tsc -b"
+  },
+  "dependencies": {
+    "@mdi/font": "^7.4.47",
+    "@saf/vue-spa": "*",
+    "@tanstack/vue-query": "^5.64.2",
+    "@your-org/client-requests": "*",
+    "@your-org/clients-common": "*",
+    "@your-org/specs-apis": "*",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/tsconfig": "^0.7.0",
+    "openapi-fetch": "^0.13.4",
+    "rollup-plugin-ignore": "^1.0.10",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.5",
+    "vite-plugin-vue-devtools": "^7.7.0",
+    "vite-plugin-vuetify": "^2.0.4",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0",
+    "vue-tsc": "^2.2.0",
+    "vuetify": "^3.7.6"
+  },
+  "devDependencies": {
+    "@tanstack/vue-query-devtools": "^5.64.2",
+    "@vitest/coverage-v8": "^3.0.5",
+    "@vue/test-utils": "^2.4.4",
+    "eslint": "^9.18.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-vue": "^9.32.0",
+    "globals": "^15.14.0",
+    "jsdom": "^24.0.0",
+    "prettier": "3.4.2",
+    "sass-embedded": "^1.85.0",
+    "typescript-eslint": "^8.21.0",
+    "vitest": "^3.0.5"
+  },
+  "workspaces": [
+    "clients/*"
+  ]
+}

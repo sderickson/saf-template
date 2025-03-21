@@ -1,0 +1,115 @@
+components:
+  schemas:
+    CreateTodoRequest:
+      type: object
+      required:
+        - title
+      properties:
+        title:
+          type: string
+          description: The title/description of the todo item
+
+    UpdateTodoRequest:
+      type: object
+      required:
+        - title
+        - completed
+      properties:
+        title:
+          type: string
+          description: The title/description of the todo item
+        completed:
+          type: boolean
+          description: Whether the todo item has been completed
+
+get:
+  summary: List all todos
+  tags:
+    - todos
+  responses:
+    "200":
+      description: A list of todo items
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "../schemas/todo.yaml"
+
+post:
+  summary: Create a new todo
+  tags:
+    - todos
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/CreateTodoRequest"
+  responses:
+    "201":
+      description: The created todo item
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/todo.yaml"
+    "400":
+      description: Invalid request body
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/error.yaml"
+
+/{id}:
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: The todo item ID
+
+  put:
+    summary: Update a todo
+    tags:
+      - todos
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdateTodoRequest"
+    responses:
+      "200":
+        description: The updated todo item
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/todo.yaml"
+      "404":
+        description: Todo item not found
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/error.yaml"
+      "400":
+        description: Invalid request body
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/error.yaml"
+
+  delete:
+    summary: Delete a todo
+    tags:
+      - todos
+    responses:
+      "204":
+        description: Todo item successfully deleted
+      "404":
+        description: Todo item not found
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/error.yaml"

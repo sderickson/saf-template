@@ -1,0 +1,57 @@
+# common elements between dev and test
+services:
+  caddy:
+    image: caddy:2.9.1
+    ports:
+      - 80:80
+    volumes:
+      - ./remote-assets/config:/etc/caddy/
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      - DOMAIN=${DOMAIN}
+      - PROTOCOL=${PROTOCOL}
+    depends_on:
+      - clients
+
+  clients:
+    # Named for local dev, but doesn't get published; not needed for prod
+    image: your-org-clients:latest
+    build:
+      context: ../..
+      dockerfile: ./clients/Dockerfile
+
+  services-api:
+    image: ghcr.io/sderickson/your-org-services-api:latest
+    volumes:
+      - ../../dbs/main/data:/app/dbs/main/data
+    build:
+      context: ../..
+      dockerfile: services/api/Dockerfile
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - PROTOCOL=${PROTOCOL}
+      - DOMAIN=${DOMAIN}
+  services-auth:
+    image: ghcr.io/sderickson/saf-services-auth:latest
+    volumes:
+      - ../../saf-2025/dbs/auth/data:/app/dbs/auth/data
+    build:
+      context: ../../saf-2025
+      dockerfile: services/auth/Dockerfile
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - PROTOCOL=${PROTOCOL}
+      - DOMAIN=${DOMAIN}
+      
+  specs-apis:
+    build:
+      context: ../..
+      dockerfile: ./specs/apis/Dockerfile
+    volumes:
+      - ../../specs/apis/dist:/app/specs/apis/dist
+    command: npm run generate-and-serve 
+
+volumes:
+  caddy_data:
+  caddy_config:

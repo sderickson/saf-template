@@ -1,0 +1,74 @@
+(serve_prod_spas) {
+	encode gzip
+	root * /srv
+	file_server {
+		pass_thru
+	}
+	handle /auth/* {
+		try_files /auth/index.html
+	}
+	handle /app/* {
+		try_files /app/index.html
+	}
+}
+
+(reverse_proxy_common) {
+	header_up X-Request-ID {http.request.uuid}
+}
+
+{$PROTOCOL}://{$DOMAIN}, {$PROTOCOL}://api.{$DOMAIN}, {$PROTOCOL}://api.specs.{$DOMAIN} {
+	# Add unique request ID header to all requests
+	header {
+		+X-Request-ID {http.request.uuid}
+	}
+
+	# Minimal logging configuration - only errors and warnings
+	log {
+		level ERROR
+		format console
+	}
+
+	# Route matchers
+	@auth {
+		host api.{$DOMAIN}
+		path /auth*
+	}
+	@api {
+		host api.{$DOMAIN}
+		not path /auth*
+	}
+	@specs {
+		host api.specs.{$DOMAIN}
+	}
+
+	handle @auth {
+		reverse_proxy services-auth:3000 {
+			import reverse_proxy_common
+		}
+	}
+
+	handle @api {
+		forward_auth services-auth:3000 {
+			uri /auth/verify
+			header_up X-Request-ID {http.request.uuid}
+			copy_headers X-User-ID X-User-Email
+		}
+		reverse_proxy services-api:3000 {
+			import reverse_proxy_common
+		}
+	}
+
+	handle @specs {
+		reverse_proxy specs-apis:3000 {
+			import reverse_proxy_common
+		}
+	}
+
+	handle {
+		# For development, defer to the Vite dev server
+		{$DISABLE_VITE_DEV_SERVER} reverse_proxy clients:5173
+
+		# For production, serve the static files
+		{$DISABLE_CADDY_PROD_SERVER} import serve_prod_spas
+	}
+}

@@ -1,0 +1,5 @@
+#!/usr/bin/env node
+import { startServer } from "@saf/node-express";
+import app from "../app.ts";
+
+startServer(app);

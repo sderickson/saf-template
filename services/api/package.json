@@ -1,0 +1,15 @@
+{
+  "name": "@your-org/services-api",
+  "type": "module",
+  "scripts": {
+    "start": "node --experimental-strip-types ./bin/www",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "healthcheck": "node --experimental-strip-types ./bin/healthcheck"
+  },
+  "dependencies": {
+    "@saf/node-express": "*",
+    "@your-org/specs-apis": "*"
+  }
+}

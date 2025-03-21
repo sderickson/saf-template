@@ -1,0 +1,22 @@
+{
+  "name": "@your-org-2025/deploy-instance",
+  "scripts": {
+    "dev": "docker compose --env-file .env.dev --env-file .env -f docker-compose.dev.yaml up --watch",
+    "test": "docker compose --env-file .env.test -f docker-compose.base.yaml -f docker-compose.test.yaml up",
+    "prod-local": "docker compose --env-file .env.prod-local -f docker-compose.prod-local.yaml up",
+
+    "exec-remote": "source .env.remote && ssh $SSH_HOSTNAME 'bash -s'",
+    "build": "cd ../.. && ./deploy/instance/local-scripts/build.sh",
+    "push": "cd ../.. && ./deploy/instance/local-scripts/push.sh",
+    "sync": "source .env.remote && cd ../.. && ./deploy/instance/local-scripts/sync.sh",
+
+    "remote-purge": "npm run exec-remote < ./remote-scripts/purge.sh",
+    "remote-setup": "npm run exec-remote < ./remote-scripts/setup.sh",
+    "remote-pull": "npm run exec-remote < ./remote-scripts/pull.sh",
+    "remote-deploy": "npm run exec-remote < ./remote-scripts/deploy.sh",
+    "remote-undeploy": "npm run exec-remote < ./remote-scripts/undeploy.sh",
+    "remote-logs": "npm run exec-remote < ./remote-scripts/logs.sh",
+    
+    "full-deploy": "npm run build && npm run push && npm run remote-pull && npm run sync && npm run remote-deploy"
+  }
+}

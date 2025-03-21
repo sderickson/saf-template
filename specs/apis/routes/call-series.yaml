@@ -1,0 +1,254 @@
+get:
+  summary: List all call series for the authenticated user
+  operationId: getCallSeries
+  tags:
+    - Call Series
+  responses:
+    "200":
+      description: List of call series
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "../schemas/call-series.yaml"
+    "401":
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/error.yaml"
+    "403":
+      description: Forbidden - User does not own this call series
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/error.yaml"
+    "404":
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/error.yaml"
+
+post:
+  summary: Create a new call series
+  operationId: createCallSeries
+  tags:
+    - Call Series
+  responses:
+    "201":
+      description: Created call series
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/call-series.yaml"
+    "400":
+      description: Bad Request - Invalid input (e.g., invalid phone number format)
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/error.yaml"
+    "401":
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/error.yaml"
+
+/{id}:
+  get:
+    summary: Get a specific call series
+    operationId: getCallSeriesById
+    tags:
+      - Call Series
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    responses:
+      "200":
+        description: Call series details
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/call-series.yaml"
+      "400":
+        description: Bad Request - Invalid ID format
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/error.yaml"
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/error.yaml"
+      "403":
+        description: Forbidden - User does not own this call series
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/error.yaml"
+      "404":
+        description: Not found
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/error.yaml"
+
+  put:
+    summary: Update a call series
+    operationId: updateCallSeries
+    tags:
+      - Call Series
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              recipient_name:
+                type: string
+              phone_number:
+                type: string
+    responses:
+      "200":
+        description: Updated call series
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/call-series.yaml"
+      "400":
+        description: Bad Request - Invalid input (e.g., invalid phone number format)
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/error.yaml"
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/error.yaml"
+      "403":
+        description: Forbidden - User does not own this call series
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/error.yaml"
+      "404":
+        description: Not found
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/error.yaml"
+
+  delete:
+    summary: Delete a call series
+    operationId: deleteCallSeries
+    tags:
+      - Call Series
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    responses:
+      "200":
+        description: Deleted call series
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/call-series.yaml"
+      "400":
+        description: Bad Request - Invalid ID format
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/error.yaml"
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/error.yaml"
+      "403":
+        description: Forbidden - User does not own this call series
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/error.yaml"
+      "404":
+        description: Not found
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/error.yaml"
+
+/{id}/test-call:
+  post:
+    summary: Initiate a test call to the phone number associated with a call series
+    operationId: initiateTestCall
+    tags:
+      - Call Series
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    responses:
+      "200":
+        description: Call successfully initiated
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - success
+                - message
+              properties:
+                success:
+                  type: boolean
+                  description: Whether the call was successfully initiated
+                message:
+                  type: string
+                  description: A human-readable message about the call initiation
+      "400":
+        description: Bad Request - No valid phone number associated with call series
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/error.yaml"
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/error.yaml"
+      "403":
+        description: Forbidden - User does not own this call series
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/error.yaml"
+      "404":
+        description: Not found
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/error.yaml"
