@@ -8,12 +8,7 @@
   "author": "TODO",
   "workspaces": [
     "clients",
-    "dbs/*",
-    "integrations/*",
-    "saf-2025/lib/*",
-    "services/*",
-    "specs/*",
-    "tools"
+    "saf-2025/lib/*"
   ],
   "engines": {
     "node": ">=22"

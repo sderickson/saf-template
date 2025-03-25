@@ -1,14 +1,3 @@
 {
-  "compilerOptions": {
-    "target": "es2020",
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "noEmit": true,
-    "esModuleInterop": true,    
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,                          
-    "skipLibCheck": true
-  }
+  "extends": "./saf-2025/tsconfig.json"
 }

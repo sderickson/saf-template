@@ -1,1 +1,0 @@
-If you'd like to add a database, see the appropriate library in [saf-2025/lib](../saf-2025/lib/). For example if you want a Drizzle-wrapped SQLite database, try [drizzle-sqlite3](../saf-2025/lib/drizzle-sqlite3/).

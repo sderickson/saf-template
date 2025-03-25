@@ -18,9 +18,6 @@ function makeConfig() {
     ],
     build: {
       rollupOptions: {
-        input: {
-          landing: path.resolve(__dirname, "index.html"),
-        },
         plugins: [ignore(["**/*.test.ts"])],
       },
     },
@@ -87,7 +84,7 @@ const proxyLogger: ProxyOptions["configure"] = (proxy, _options) => {
           `<${proxyRes.statusCode}>`,
           req.originalUrl,
           "=>",
-          req.url,
+          req.url
         );
       }
     });

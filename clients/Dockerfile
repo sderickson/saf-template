@@ -5,10 +5,7 @@ FROM node:22-slim AS builder
 WORKDIR /app
 COPY ./package*.json .
 COPY ./tsconfig.json .
-COPY ./specs/apis/package*.json ./specs/apis/
 COPY ./clients/package*.json ./clients/
-COPY ./clients/requests/package*.json ./clients/requests/
-COPY ./clients/common/package*.json ./clients/common/
 
 RUN npm install --omit=dev
 
@@ -21,7 +18,6 @@ RUN npm install @rollup/rollup-linux-arm64-gnu || true
 RUN npm install @rollup/rollup-linux-x64-gnu || true
 
 # Copy source files
-COPY ./specs/apis/ ./specs/apis/
 COPY --exclude=**/*.test.ts --exclude=vitest.config.ts ./clients/ ./clients/
 
 # Vue app setup

@@ -1,27 +1,8 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  // Has the vue config supercede the project's base tsconfig
+  "extends": ["../tsconfig.json", "@vue/tsconfig/tsconfig.dom.json"],
   "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "paths": {
-      "clients/*": ["./*"],
-      "@saf/specs-apis/*": ["../specs/apis/dist/*"]
-    },
-
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo"
   },
-  "include": [
-    "app/**/*.ts",
-    "app/**/*.vue",
-    "auth/**/*.ts",
-    "auth/**/*.vue",
-    "landing/**/*.ts",
-    "landing/**/*.vue",
-    "*.ts",
-    "*.vue", "requests/client.ts",
-  ]
+  "exclude": ["node_modules", "vite.config.ts"]
 }
