@@ -16,7 +16,7 @@ services:
 
   clients:
     # Named for local dev, but doesn't get published; not needed for prod
-    image: your-org-clients:latest
+    image: scotterickson-clients:latest
     build:
       context: ../..
       dockerfile: ./clients/Dockerfile

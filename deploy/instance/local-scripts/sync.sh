@@ -1,8 +1,8 @@
 #!/bin/bash
 
-REMOTE_HOST="root@xxx.xxx.xxx.xxx"
+REMOTE_HOST="root@137.184.36.178"
 REMOTE_PATH="/root"
-REMOTE_FOLDER="/root/your-org/"
+REMOTE_FOLDER="/root/scotterickson/"
 LOCAL_FOLDER="./deploy/instance/remote-assets"
 ZIP_NAME="deploy-instance.zip"
 

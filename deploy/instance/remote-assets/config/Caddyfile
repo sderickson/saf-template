@@ -4,11 +4,11 @@
 	file_server {
 		pass_thru
 	}
-	handle /auth/* {
-		try_files /auth/index.html
+	@no_extension {
+		not path_regexp \.
 	}
-	handle /app/* {
-		try_files /app/index.html
+	handle @no_extension {
+		try_files /index.html
 	}
 }
 
@@ -16,7 +16,7 @@
 	header_up X-Request-ID {http.request.uuid}
 }
 
-{$PROTOCOL}://{$DOMAIN}, {$PROTOCOL}://api.{$DOMAIN}, {$PROTOCOL}://api.specs.{$DOMAIN} {
+{$PROTOCOL}://{$DOMAIN} {
 	# Add unique request ID header to all requests
 	header {
 		+X-Request-ID {http.request.uuid}
@@ -24,44 +24,8 @@
 
 	# Minimal logging configuration - only errors and warnings
 	log {
-		level ERROR
+		level INFO
 		format console
-	}
-
-	# Route matchers
-	@auth {
-		host api.{$DOMAIN}
-		path /auth*
-	}
-	@api {
-		host api.{$DOMAIN}
-		not path /auth*
-	}
-	@specs {
-		host api.specs.{$DOMAIN}
-	}
-
-	handle @auth {
-		reverse_proxy services-auth:3000 {
-			import reverse_proxy_common
-		}
-	}
-
-	handle @api {
-		forward_auth services-auth:3000 {
-			uri /auth/verify
-			header_up X-Request-ID {http.request.uuid}
-			copy_headers X-User-ID X-User-Email
-		}
-		reverse_proxy services-api:3000 {
-			import reverse_proxy_common
-		}
-	}
-
-	handle @specs {
-		reverse_proxy specs-apis:3000 {
-			import reverse_proxy_common
-		}
 	}
 
 	handle {

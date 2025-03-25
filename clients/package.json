@@ -1,5 +1,5 @@
 {
-  "name": "@your-org/clients",
+  "name": "@scotterickson/clients",
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -1,4 +1,4 @@
-FROM your-org-clients:latest AS builder
+FROM scotterickson-clients:latest AS builder
 
 RUN npm run build
 
