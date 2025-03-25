@@ -8,7 +8,7 @@
   "author": "TODO",
   "workspaces": [
     "clients",
-    "saf-2025/lib/*"
+    "saflib/*"
   ],
   "engines": {
     "node": ">=22"

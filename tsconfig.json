@@ -1,3 +1,3 @@
 {
-  "extends": "./saf-2025/tsconfig.json"
+  "extends": "./saflib/tsconfig.json"
 }
