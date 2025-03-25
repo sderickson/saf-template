@@ -5,6 +5,7 @@ FROM node:22-slim AS builder
 WORKDIR /app
 COPY ./package*.json .
 COPY ./tsconfig.json .
+COPY ./saf-2025/tsconfig.json ./saf-2025/
 COPY ./clients/package*.json ./clients/
 
 RUN npm install --omit=dev

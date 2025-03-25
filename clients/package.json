@@ -14,9 +14,7 @@
     "ts:check": "vue-tsc -b"
   },
   "dependencies": {
-    "@saflib/vue-spa": "*",
-    "@saf-2025/specs-apis": "*",
-    "@saflib/auth-vue": "*"
+    "@saflib/vue-spa": "*"
   },
   "devDependencies": {
     "@saflib/vue-spa-dev": "*"

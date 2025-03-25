@@ -1,7 +1,7 @@
 #!/bin/bash
 
-REMOTE_HOST="azureuser@20.118.233.142"
-REMOTE_PATH="/home/azureuser"
+REMOTE_HOST="root@xxx.xxx.xxx.xxx"
+REMOTE_PATH="/root"
 REMOTE_FOLDER="/root/your-org/"
 LOCAL_FOLDER="./deploy/instance/remote-assets"
 ZIP_NAME="deploy-instance.zip"

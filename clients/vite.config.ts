@@ -3,7 +3,6 @@ import vue from "@vitejs/plugin-vue";
 import vuetify from "vite-plugin-vuetify";
 import vueDevTools from "vite-plugin-vue-devtools";
 import type { ProxyOptions } from "vite";
-import path from "path";
 import ignore from "rollup-plugin-ignore";
 const DEBUG_PROXY = true;
 
@@ -11,11 +10,7 @@ function makeConfig() {
   return defineConfig({
     base: "/",
     appType: "mpa",
-    plugins: [
-      vue(),
-      vuetify({ styles: { configFile: "./overrides.scss" } }),
-      vueDevTools(),
-    ],
+    plugins: [vue(), vuetify(), vueDevTools()],
     build: {
       rollupOptions: {
         plugins: [ignore(["**/*.test.ts"])],
@@ -84,7 +79,7 @@ const proxyLogger: ProxyOptions["configure"] = (proxy, _options) => {
           `<${proxyRes.statusCode}>`,
           req.originalUrl,
           "=>",
-          req.url
+          req.url,
         );
       }
     });
