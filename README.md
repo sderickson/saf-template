@@ -2,8 +2,8 @@
 
 This is a template repository to create complex web applications using SAF.
 
-- Shared logic: [SAF library repository](https://github.com/sderickson/saflib).
-- Information about SAF: [https://saf-demo.online](https://saf-demo.online) ([src](https://github.com/sderickson/saf-2025)).
+- Shared logic: [SAF library repository](https://github.com/your-org/saflib).
+- Information about SAF: [https://saf-demo.online](https://saf-demo.online) ([src](https://github.com/your-org/saf-2025)).
 
 # Setup
 

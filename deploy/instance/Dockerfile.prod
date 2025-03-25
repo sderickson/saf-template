@@ -1,4 +1,4 @@
-FROM scotterickson-clients:latest AS builder
+FROM your-username-clients:latest AS builder
 
 RUN npm run build
 

@@ -1,5 +1,5 @@
 {
-  "name": "@scotterickson/your-product",
+  "name": "@your-username/your-product",
   "description": "TODO",
   "scripts": {
     "test": "npm run test --workspaces --if-present --parallel",
