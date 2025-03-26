@@ -1,9 +1,13 @@
 {
   "name": "@your-username/your-product",
   "description": "TODO",
+  "type": "module",
   "scripts": {
     "test": "npm run test --workspaces --if-present --parallel",
-    "test:coverage": "npm run test:coverage --workspaces --if-present --parallel"
+    "test:coverage": "npm run test:coverage --workspaces --if-present --parallel",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "format": "prettier --write ."
   },
   "author": "TODO",
   "workspaces": [
