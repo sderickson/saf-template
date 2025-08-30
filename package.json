@@ -1,13 +1,16 @@
 {
-  "name": "@your-username/your-product",
+  "name": "@your-org/your-product",
   "description": "TODO",
   "type": "module",
   "scripts": {
-    "test": "npm run test --workspaces --if-present --parallel",
-    "test:coverage": "npm run test:coverage --workspaces --if-present --parallel",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "npm run test:coverage --workspaces --if-present",
+    "test:e2e": "npm run test:e2e --workspaces --if-present",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "typecheck": "vue-tsc -b"
   },
   "author": "TODO",
   "workspaces": [
@@ -19,8 +22,5 @@
   },
   "devDependencies": {
     "@saflib/monorepo": "*"
-  },
-  "dependencies": {
-    "@saflib/auth-links": "*"
   }
 }
