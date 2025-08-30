@@ -1,0 +1,14 @@
+{
+  "name": "@your-org/web-common",
+  "description": "Shared look-and-feel and utilities for web clients",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.ts",
+    "./strings": "./strings.ts",
+    "./i18n": "./i18n.ts"
+  },
+  "dependencies": {
+    "@saflib/vue": "*"
+  }
+}

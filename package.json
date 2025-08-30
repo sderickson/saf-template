@@ -11,13 +11,16 @@
   },
   "author": "TODO",
   "workspaces": [
-    "clients",
-    "saflib/*"
+    "clients/**",
+    "saflib/**"
   ],
   "engines": {
     "node": ">=22"
   },
   "devDependencies": {
     "@saflib/monorepo": "*"
+  },
+  "dependencies": {
+    "@saflib/auth-links": "*"
   }
 }
