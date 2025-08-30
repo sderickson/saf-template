@@ -41,6 +41,16 @@ const subDomainProxyPlugin: Plugin = {
   },
 };
 
+const input = {
+  root: path.resolve(__dirname, "index.html"),
+  ...Object.fromEntries(
+    subdomains.map((subdomain) => [
+      subdomain,
+      path.resolve(__dirname, `${subdomain}/index.html`),
+    ])
+  ),
+};
+
 function makeConfig() {
   return defineConfig({
     base: "/",
@@ -54,14 +64,7 @@ function makeConfig() {
     ],
     build: {
       rollupOptions: {
-        input: {
-          app: path.resolve(__dirname, "app/index.html"),
-          auth: path.resolve(__dirname, "auth/index.html"),
-          admin: path.resolve(__dirname, "admin/index.html"),
-          account: path.resolve(__dirname, "account/index.html"),
-          landing: path.resolve(__dirname, "index.html"),
-          onboarding: path.resolve(__dirname, "onboarding/index.html"),
-        },
+        input,
         plugins: [ignore(["**/*.test.ts"])],
       },
       sourcemap: true,
