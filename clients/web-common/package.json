@@ -6,7 +6,8 @@
   "exports": {
     ".": "./index.ts",
     "./strings": "./strings.ts",
-    "./i18n": "./i18n.ts"
+    "./i18n": "./i18n.ts",
+    "./playwright.config": "./playwright.config.ts"
   },
   "dependencies": {
     "@saflib/vue": "*"

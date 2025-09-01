@@ -1,1 +1,1 @@
-// keep small, common assets in this folder and re-export them from here
+export * as nav_logo from "./nav_logo.png";
