@@ -1,1 +1,3 @@
-// TODO: use `npm exec saf-workflow kickoff add-spa root` to generate
+import { main } from "@your-org/web-root";
+
+main();

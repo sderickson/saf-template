@@ -17,6 +17,7 @@
   "dependencies": {
     "@saflib/vue": "*",
     "@your-org/web-root-links": "*",
-    "vue-router": "^4.5.1"
+    "vue-router": "^4.5.1",
+    "@your-org/web-common": "*"
   }
 }
