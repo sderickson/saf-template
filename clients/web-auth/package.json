@@ -6,8 +6,7 @@
   "exports": {
     ".": "./index.ts",
     "./strings": "./strings.ts",
-    "./e2e-utils": "./e2e-utils.ts",
-    "./i18n": "./i18n.ts"
+    "./e2e-utils": "./e2e-utils.ts"
   },
   "scripts": {
     "dev": "vite",
