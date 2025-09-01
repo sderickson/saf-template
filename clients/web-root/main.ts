@@ -4,6 +4,7 @@ import { vuetifyConfig } from "@your-org/web-common";
 import { router } from "./router.ts";
 import { webRootStrings } from "./strings.ts";
 import { webCommonStrings } from "@your-org/web-common/strings";
+import "@saflib/vue/components"; // to ensure vuetify styles are included
 
 export const main = () => {
   setClientName("web-root");

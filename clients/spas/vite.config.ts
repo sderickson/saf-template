@@ -42,12 +42,13 @@ const subDomainProxyPlugin: Plugin = {
 };
 
 const input = {
-  root: path.resolve(__dirname, "index.html"),
   ...Object.fromEntries(
-    subdomains.map((subdomain) => [
-      subdomain,
-      path.resolve(__dirname, `${subdomain}/index.html`),
-    ])
+    subdomains
+      .filter((subdomain) => subdomain !== "")
+      .map((subdomain) => [
+        subdomain,
+        path.resolve(__dirname, `${subdomain}/index.html`),
+      ])
   ),
 };
 
