@@ -10,7 +10,9 @@ const { data: profile } = useQuery(getProfile());
 <template>
   <v-container>
     <div>
-      <h1>Stub Page</h1>
+      <h1 class="mt-10">Stub Page</h1>
+      <hr class="my-10" />
+      <h2>Setup</h2>
       <div>
         Delete this file once you've added a page with:
         <v-sheet elevation="1" color="grey-lighten-3" class="pa-4 my-8">
@@ -22,8 +24,10 @@ npm exec saf-workflow kickoff add-spa-page name-of-page</pre
         Give the above commands to your agent to run to have it done
         automatically.
       </div>
-      <div class="mt-10">
-        You can also sign in
+      <hr class="my-10" />
+      <h2 class="mb-10">Try Out Auth</h2>
+      <div>
+        Try signing in
         <v-btn class="ml-1" v-bind="linkToProps(authLinks.login)">here</v-btn>
       </div>
       <v-alert v-if="profile?.email" type="info" class="mt-10">
@@ -32,6 +36,15 @@ npm exec saf-workflow kickoff add-spa-page name-of-page</pre
           Logout</v-btn
         >
       </v-alert>
+      <hr class="my-10" />
+      <h2 class="mb-10">Monitoring</h2>
+      <div>
+        You can also go to Grafana and review Prometheus metrics at
+        <a href="http://grafana.docker.localhost"
+          >http://grafana.docker.localhost</a
+        >. You'll need to add Prometheus as a data source; point it to the url
+        <strong>http://prometheus:9090</strong>.
+      </div>
     </div>
   </v-container>
 </template>
