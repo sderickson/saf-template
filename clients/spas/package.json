@@ -12,6 +12,10 @@
     "@saflib/monorepo": "*",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/tsconfig": "^0.8.1",
+    "@your-org/web-auth": "*",
+    "rollup-plugin-ignore": "^1.0.10",
+    "vite": "^7.0.0",
+    "vite-plugin-vue-devtools": "^8.0.1",
     "vite-plugin-vuetify": "^2.1.2"
   },
   "workspaces": [

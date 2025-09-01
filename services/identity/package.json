@@ -5,7 +5,7 @@
     "start": "node --experimental-strip-types ./bin/run.ts"
   },
   "dependencies": {
-    "@saflib/email-node": "*",
+    "@saflib/email": "*",
     "@saflib/identity": "*"
   }
 }

@@ -20,6 +20,7 @@
     "@saflib/auth": "*",
     "@saflib/links": "*",
     "@saflib/vue": "*",
+    "@your-org/web-common": "*",
     "@your-org/web-root-links": "*"
   }
 }
