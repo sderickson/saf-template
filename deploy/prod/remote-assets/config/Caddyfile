@@ -1,0 +1,21 @@
+import common.Caddyfile 
+
+{$PROTOCOL}://{$DOMAIN} {
+	import spa /index.html
+}
+
+{$PROTOCOL}://auth.{$DOMAIN} {
+	import spa /auth/index.html
+}
+
+{$PROTOCOL}://health.{$DOMAIN} {
+	import admin-file-server /health-assets
+}
+
+{$PROTOCOL}://grafana.{$DOMAIN} {
+	import admin-proxy grafana:3000
+}
+
+{$PROTOCOL}://prometheus.{$DOMAIN} {
+	import admin-proxy prometheus:9090
+}
