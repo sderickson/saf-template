@@ -15,7 +15,8 @@
   "author": "TODO",
   "workspaces": [
     "clients/**",
-    "saflib/**"
+    "saflib/**",
+    "services/**"
   ],
   "engines": {
     "node": ">=22"
