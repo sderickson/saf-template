@@ -13,6 +13,9 @@ saf-workflow-status.json
 *.sln
 *.sw?
 
+# Logs
+*.log
+
 # Playwright
 **/test-results
 **/playwright-report
