@@ -15,6 +15,7 @@
   "author": "TODO",
   "workspaces": [
     "clients/**",
+    "deploy/**",
     "saflib/**",
     "services/**"
   ],
