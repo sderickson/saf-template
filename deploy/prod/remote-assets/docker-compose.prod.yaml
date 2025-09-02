@@ -1,0 +1,90 @@
+services:
+  caddy:
+    cap_add:
+      - NET_ADMIN
+    image: ghcr.io/your-org/your-org-caddy:latest
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      - DISABLE_VITE_DEV_SERVER=#
+      - DOMAIN=${DOMAIN}
+      - PROTOCOL=${PROTOCOL}
+      - DOMAIN_REDIRECTS=${DOMAIN_REDIRECTS}
+      - BLOCK_ADMIN_PAGES=true
+    volumes:
+      - ./config:/etc/caddy/
+      - caddy_data:/data
+      - caddy_config:/config
+    restart: unless-stopped
+
+  identity:
+    image: ghcr.io/your-org/your-org-identity:latest
+    environment:
+      - ALLOW_DB_CREATION=true
+      - CLIENT_SUBDOMAINS=${CLIENT_SUBDOMAINS}
+      - DEPLOYMENT_NAME=${DEPLOYMENT_NAME}
+      - DOMAIN=${DOMAIN}
+      - DOMAIN_REDIRECTS=${DOMAIN_REDIRECTS}
+      - MOCK_INTEGRATIONS=${MOCK_INTEGRATIONS}
+      - NODE_ENV=${NODE_ENV}
+      - PROTOCOL=${PROTOCOL}
+      - SERVICE_SUBDOMAINS=${SERVICE_SUBDOMAINS}
+      - TZ=${TZ}
+
+      - IDENTITY_SERVICE_GRPC_PORT=${IDENTITY_SERVICE_GRPC_PORT}
+
+      - IDENTITY_SERVICE_ADMIN_EMAILS=${IDENTITY_SERVICE_ADMIN_EMAILS}
+      - IDENTITY_SERVICE_HTTP_PORT=${IDENTITY_SERVICE_HTTP_PORT}
+      - IDENTITY_SERVICE_DISABLE_RATE_LIMITING=${IDENTITY_SERVICE_DISABLE_RATE_LIMITING}
+
+      - NODEMAILER_TRANSPORT_CONFIG=${NODEMAILER_TRANSPORT_CONFIG}
+
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 128M
+    memswap_limit: 2G
+    volumes:
+      - /opt/saf-2025/saflib/auth-db/data:/app/saflib/identity/identity-db/data
+      - /opt/saf-2025/saflib/auth-service/data:/app/saflib/identity/identity-service/data
+
+  prometheus:
+    image: prom/prometheus:v2.46.0
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+
+  loki:
+    image: grafana/loki:latest
+    volumes:
+      - ./loki-config.yaml:/etc/loki/loki-config.yaml
+    command: -config.file=/etc/loki/loki-config.yaml
+
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+      - grafana_storage:/var/lib/grafana
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+
+  node_exporter:
+    image: prom/node-exporter:latest
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - "--path.procfs=/host/proc"
+      - "--path.sysfs=/host/sys"
+      - "--path.rootfs=/rootfs"
+      - "--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($|/)"
+volumes:
+  caddy_data:
+  caddy_config:
+  grafana_storage:

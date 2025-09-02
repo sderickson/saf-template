@@ -1,0 +1,127 @@
+# Have Caddy serve prometheus metrics
+http://caddy:2020 {
+	metrics
+}
+
+# For old URLs, or domains you don't want people to use (such as "www")
+# set the env variable DOMAIN_REDIRECTS. This snippet won't work unless
+# a domain is given so even if you don't want to redirect, you need to
+# set the env variable.
+{$DOMAIN_REDIRECTS} {
+	redir {$PROTOCOL}://{$DOMAIN}{uri} permanent
+}
+
+# Caddy is the source of request IDs for API requests.
+#These get propagated both to identity and the target service.
+(reverse_proxy_common) {
+	header_up X-Request-ID {http.request.uuid}
+}
+
+# Used for SPA clients accessible to all users
+(spa) {
+	encode gzip
+	root * /srv/spas
+	file_server {
+		pass_thru
+	}
+	@non-file expression path_regexp('^[^.]*$')
+	handle @non-file {
+		try_files {args[0]}
+	}
+}
+
+# Used for SPA clients accessible only to admins
+(admin-spa) {
+	encode gzip
+	root * /srv/spas
+
+	file_server {
+		pass_thru
+	}
+	@non-file expression path_regexp('^[^.]*$')
+	handle @non-file {
+		forward_auth identity:3000 {
+			uri /auth/verify?
+			header_up X-Csrf-Skip true
+			header_up X-Require-Admin {$BLOCK_ADMIN_PAGES}
+		}
+		try_files {args[0]}
+	}
+}
+
+(cors) {
+	@cors_preflight method OPTIONS
+
+	header {
+		Access-Control-Allow-Origin "{header.origin}"
+		Vary Origin
+		Access-Control-Expose-Headers "Authorization"
+		Access-Control-Allow-Credentials "true"
+	}
+}
+
+# Used for static assets accessible only to admins.
+# With "browse" enabled, you can go to the subdomain root path
+# and explore the contents.
+(admin-file-server) {
+	import cors
+	encode gzip
+	root * /srv{args[0]}
+	forward_auth identity:3000 {
+		uri /auth/verify?
+		header_up X-Csrf-Skip true
+		header_up X-Require-Admin {$BLOCK_ADMIN_PAGES}
+	}
+
+	file_server {
+		pass_thru
+		browse
+	}
+}
+
+# Used for API servers accessible to all users.
+(api-proxy) {
+	forward_auth identity:3000 {
+		uri /auth/verify?
+		header_up X-Request-ID {http.request.uuid}
+		copy_headers X-User-ID X-User-Email X-User-Scopes X-User-Email-Verified
+		header_up X-Csrf-Token {http.request.header.X-CSRF-Token}
+	}
+	reverse_proxy {args[0]} {
+		import reverse_proxy_common
+	}
+}
+
+# Used for standalone services which provide their own UI, only accessible to admins,
+# such as Grafana and Prometheus.
+(admin-proxy) {
+	forward_auth identity:3000 {
+		uri /auth/verify?
+		header_up X-Csrf-Skip true
+		header_up X-Require-Admin {$BLOCK_ADMIN_PAGES}
+	}
+
+	reverse_proxy {args[0]} {
+		import reverse_proxy_common
+	}
+}
+
+# ---- AUTH ----
+
+# Other subdomains depend on identity verifying users have access to subdomains (via forward_auth)
+{$PROTOCOL}://identity.{$DOMAIN} {
+	@identity {
+		host identity.{$DOMAIN}
+		path /auth*
+	}
+
+	# auth routes do not go through the "verify" endpoint; they manage their own access
+	handle @identity {
+		reverse_proxy identity:3000 {
+			import reverse_proxy_common
+		}
+	}
+
+	# all other routes, such as "/users", go through the "verify" endpoint
+	import api-proxy identity:3000
+}

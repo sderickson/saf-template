@@ -1,0 +1,17 @@
+import common.Caddyfile 
+
+{$PROTOCOL}://{$DOMAIN} {
+	reverse_proxy clients:5173
+}
+
+{$PROTOCOL}://auth.{$DOMAIN} {
+	reverse_proxy clients:5173
+}
+
+{$PROTOCOL}://grafana.{$DOMAIN} {
+	import admin-proxy grafana:3000
+}
+
+{$PROTOCOL}://prometheus.{$DOMAIN} {
+	import admin-proxy prometheus:9090
+}

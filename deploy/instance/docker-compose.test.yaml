@@ -1,7 +1,0 @@
-services:
-  caddy:
-    environment:
-      - DISABLE_CADDY_PROD_SERVER=#
-
-  clients:
-    command: npm run dev

@@ -1,0 +1,21 @@
+{
+  "name": "@your-org/clients",
+  "description": "Vite setup to build all SPA clients",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@saflib/env": "*",
+    "@saflib/monorepo": "*",
+    "@saflib/vite": "*",
+    "@vue/tsconfig": "^0.8.1",
+    "@your-org/web-auth": "*",
+    "@your-org/web-root": "*"
+  },
+  "workspaces": [
+    "clients/*"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@your-org/web-auth",
+  "description": "Sign-up, sign-in, and related pages.",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.ts",
+    "./strings": "./strings.ts",
+    "./e2e-utils": "./e2e-utils.ts"
+  },
+  "scripts": {
+    "dev": "vite",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest --coverage",
+    "test:e2e": "npx playwright test",
+    "test:e2e:ui": "npx playwright test --ui"
+  },
+  "dependencies": {
+    "@saflib/auth": "*",
+    "@saflib/links": "*",
+    "@saflib/vue": "*",
+    "@your-org/web-common": "*",
+    "@your-org/web-root-links": "*"
+  }
+}

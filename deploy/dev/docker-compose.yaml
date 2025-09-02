@@ -1,0 +1,89 @@
+# common elements between dev and test
+services:
+  caddy:
+    image: caddy:2.9.1
+    ports:
+      - 80:80
+    volumes:
+      - ./caddy-config:/etc/caddy/
+      - caddy_data:/data
+      - caddy_config:/config
+      - ../prod/remote-assets/health-assets:/srv/health-assets
+    environment:
+      - DOMAIN=${DOMAIN}
+      - PROTOCOL=${PROTOCOL}
+      - DOMAIN_REDIRECTS=${DOMAIN_REDIRECTS}
+    depends_on:
+      - clients
+
+  clients:
+    # Named for local dev, but doesn't get published; not needed for prod
+    image: your-org-clients:latest
+    build:
+      context: ../..
+      dockerfile: ./clients/spas/Dockerfile
+    environment:
+      - CLIENT_SUBDOMAINS=${CLIENT_SUBDOMAINS}
+    volumes:
+      - ../../clients/:/app/clients/
+      - ../../saflib/:/app/saflib/
+    command: npm run dev
+
+  identity:
+    image: ghcr.io/your-org/your-org-identity:latest
+    volumes:
+      - ../../saflib/identity/identity-db/data:/app/saflib/identity/identity-db/data
+      - ../../saflib/identity/identity-service/data:/app/saflib/identity/identity-service/data
+    build:
+      context: ../..
+      dockerfile: services/identity/Dockerfile
+    environment:
+      - ALLOW_DB_CREATION=true
+      - CLIENT_SUBDOMAINS=${CLIENT_SUBDOMAINS}
+      - DEPLOYMENT_NAME=${DEPLOYMENT_NAME}
+      - DOMAIN=${DOMAIN}
+      - DOMAIN_REDIRECTS=${DOMAIN_REDIRECTS}
+      - MOCK_INTEGRATIONS=${MOCK_INTEGRATIONS}
+      - NODE_ENV=${NODE_ENV}
+      - PROTOCOL=${PROTOCOL}
+      - SERVICE_SUBDOMAINS=${SERVICE_SUBDOMAINS}
+      - TZ=${TZ}
+
+      - IDENTITY_SERVICE_GRPC_PORT=${IDENTITY_SERVICE_GRPC_PORT}
+
+      - IDENTITY_SERVICE_ADMIN_EMAILS=${IDENTITY_SERVICE_ADMIN_EMAILS}
+      - IDENTITY_SERVICE_HTTP_PORT=${IDENTITY_SERVICE_HTTP_PORT}
+      - IDENTITY_SERVICE_DISABLE_RATE_LIMITING=${IDENTITY_SERVICE_DISABLE_RATE_LIMITING}
+
+      - NODEMAILER_TRANSPORT_CONFIG=${NODEMAILER_TRANSPORT_CONFIG}
+
+  prometheus:
+    image: prom/prometheus:v2.46.0
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+      - grafana_storage:/var/lib/grafana
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+
+  node_exporter:
+    image: prom/node-exporter:latest
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - "--path.procfs=/host/proc"
+      - "--path.sysfs=/host/sys"
+      - "--path.rootfs=/rootfs"
+      - "--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($|/)"
+
+volumes:
+  caddy_data:
+  caddy_config:
+  grafana_storage:

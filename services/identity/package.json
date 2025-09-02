@@ -1,0 +1,11 @@
+{
+  "name": "@your-org/identity",
+  "type": "module",
+  "scripts": {
+    "start": "node --experimental-strip-types ./bin/run.ts"
+  },
+  "dependencies": {
+    "@saflib/email": "*",
+    "@saflib/identity": "*"
+  }
+}

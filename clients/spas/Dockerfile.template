@@ -1,0 +1,13 @@
+# syntax=docker/dockerfile:labs
+FROM node:22-slim AS builder
+
+# Copy package.json
+WORKDIR /app
+
+#{ copy_packages }#
+RUN npm install --omit=dev
+
+#{ copy_src }#
+
+# Vue app setup
+WORKDIR /app/clients/spas

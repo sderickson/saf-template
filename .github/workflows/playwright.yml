@@ -1,0 +1,40 @@
+name: Playwright Tests
+on:
+  pull_request:
+    branches: main
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: "npm"
+      - name: Install submodules
+        run: git submodule update --init
+      - name: Install dependencies
+        run: npm ci
+      - name: Pre-build images
+        run: npm run build-no-generate
+        working-directory: ./deploy/prod
+      - name: Run server
+        run: npm run prod-local &> last-docker-compose.log &
+        working-directory: ./deploy/prod
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium firefox
+      - name: Run Playwright tests
+        run: npm run test:e2e
+        # working-directory: ./clients/web-auth
+      - name: Shut down
+        run: docker stop $(docker ps -a -q)
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: last-docker-compose-log
+          path: ./deploy/prod/last-docker-compose.log
+          retention-days: 30

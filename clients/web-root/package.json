@@ -1,0 +1,23 @@
+{
+  "name": "@your-org/web-root",
+  "description": "Root page for the web application",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.ts",
+    "./strings": "./strings.ts",
+    "./i18n": "./i18n.ts"
+  },
+  "scripts": {
+    "dev": "vite",
+    "test:e2e": "npx playwright test",
+    "test:e2e:ui": "npx playwright test --ui",
+    "typecheck": "vue-tsc -b"
+  },
+  "dependencies": {
+    "@saflib/vue": "*",
+    "@your-org/web-root-links": "*",
+    "vue-router": "^4.5.1",
+    "@your-org/web-common": "*"
+  }
+}

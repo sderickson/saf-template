@@ -1,0 +1,39 @@
+services:
+  identity:
+    extends:
+      file: remote-assets/docker-compose.prod.yaml
+      service: identity
+    volumes: !override []
+
+  caddy:
+    extends:
+      file: remote-assets/docker-compose.prod.yaml
+      service: caddy
+    volumes: !override []
+    environment:
+      - BLOCK_ADMIN_PAGES=false
+
+  loki:
+    extends:
+      file: remote-assets/docker-compose.prod.yaml
+      service: loki
+    volumes:
+      - ./remote-assets/loki-config.yaml:/etc/loki/loki-config.yaml
+    command: -config.file=/etc/loki/loki-config.yaml
+
+  prometheus:
+    extends:
+      file: remote-assets/docker-compose.prod.yaml
+      service: prometheus
+    volumes:
+      - ./remote-assets/prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    extends:
+      file: remote-assets/docker-compose.prod.yaml
+      service: grafana
+    volumes: !override []
+
+volumes:
+  caddy_data:
+  caddy_config:
