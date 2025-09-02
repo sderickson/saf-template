@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar title="Log In">
+    <v-app-bar title="Auth SPA">
       <template #prepend>
         <img
           id="nav-logo"

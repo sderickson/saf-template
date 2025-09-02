@@ -16,12 +16,6 @@ test("register", async ({ page }) => {
 
   await page.goto(linkToHref(authLinks.register));
   await attachScreenshot(page);
-  await getByString(page, authAppStrings.saflib_register_page.first_name).fill(
-    "Jan"
-  );
-  await getByString(page, authAppStrings.saflib_register_page.last_name).fill(
-    "Doe"
-  );
   await getByString(page, authAppStrings.saflib_register_page.email).fill(
     getUniqueEmail()
   );
@@ -34,9 +28,6 @@ test("register", async ({ page }) => {
   ).fill("asdfasdf");
   await attachScreenshot(page);
   await getByString(page, authAppStrings.saflib_register_page.register).click();
-  await getByString(
-    page,
-    authAppStrings.saflib_verify_wall_page.title
-  ).waitFor();
+  await getByString(page, "Stub Page").waitFor();
   await attachScreenshot(page);
 });

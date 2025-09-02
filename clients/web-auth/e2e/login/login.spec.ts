@@ -37,12 +37,13 @@ test("login", async ({ page }) => {
   await page
     .getByRole("textbox", { name: "Password Password" })
     .fill(testPassword);
+  console.log("login with", {
+    email: testEmail,
+    password: testPassword,
+  });
   await attachScreenshot(page);
   await getByString(page, authAppStrings.saflib_login_page.log_in).click();
-  await getByString(
-    page,
-    authAppStrings.saflib_verify_wall_page.title
-  ).waitFor();
+  await getByString(page, "Stub Page").waitFor();
   await attachScreenshot(page, {
     fullPage: false,
   });

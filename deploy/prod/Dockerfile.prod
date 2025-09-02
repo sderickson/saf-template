@@ -1,6 +1,7 @@
 FROM your-org-clients:latest AS builder
 
-RUN npm run build
+COPY ./deploy/prod/.env.prod-local /app/.env.prod-local
+RUN export $(grep CLIENT_SUBDOMAINS /app/.env.prod-local | xargs) && npm run build
 
 FROM caddy:2.9.1
 
