@@ -30,5 +30,7 @@ This is a template repository to create complex web applications using SAF.
   Once you've done all the TODOs in `deploy/prod`, including having a remote instance to deploy to (ideally with a domain pointing to it), then:
   - In `deploy/prod`, Run:
     - `npm run remote-purge` to enforce a clean slate, then
-    - `npm run remote-setup` to install basic dependencies
+    - `npm run remote-setup` to install basic dependencies, and finally
     - `npm run full-deploy` to build, push, pull, sync, and deploy to production
+
+That's it! You should now be able to run workflows to build out your site, and have all the steps to run tests and deploy changes.
