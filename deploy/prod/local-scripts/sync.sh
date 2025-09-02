@@ -1,8 +1,8 @@
 #!/bin/bash
 
-REMOTE_HOST="TODO"
-REMOTE_PATH="/TODO"
-REMOTE_FOLDER="/root/your-org/"
+REMOTE_HOST="TODO" # e.g. root@<server-domain>
+REMOTE_PATH="TODO" # where to put the zip file, e.g. `/root/`
+REMOTE_FOLDER="TODO" # where to put the extracted files, e.g. `/root/your-project/`
 LOCAL_FOLDER="./deploy/prod/remote-assets"
 ZIP_NAME="deploy-instance.zip"
 
