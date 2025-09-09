@@ -31,7 +31,7 @@ test("login", async ({ page }) => {
   await page.goto(linkToHref(authLinks.login));
   await attachScreenshot(page);
   await getByString(page, authAppStrings.saflib_login_page.email).fill(
-    testEmail
+    testEmail,
   );
   const testPassword = "asdfasdf";
   await page
