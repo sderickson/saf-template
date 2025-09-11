@@ -27,7 +27,7 @@ async function onPasswordUpdated(user: User) {
   const { log } = getSafReporters();
   // TODO: add your own email with `npm exec saf-workflow kickoff add-email-template ./emails/password-updated.ts`
   log.info(
-    `Password update confirmation email successfully sent to ${user.id}`
+    `Password update confirmation email successfully sent to ${user.id}`,
   );
 }
 

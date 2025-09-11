@@ -17,14 +17,14 @@ test("register", async ({ page }) => {
   await page.goto(linkToHref(authLinks.register));
   await attachScreenshot(page);
   await getByString(page, authAppStrings.saflib_register_page.email).fill(
-    getUniqueEmail()
+    getUniqueEmail(),
   );
   await page
     .getByRole("textbox", { name: "Password Password" })
     .fill("asdfasdf");
   await getByString(
     page,
-    authAppStrings.saflib_register_page.confirm_password
+    authAppStrings.saflib_register_page.confirm_password,
   ).fill("asdfasdf");
   await attachScreenshot(page);
   await getByString(page, authAppStrings.saflib_register_page.register).click();

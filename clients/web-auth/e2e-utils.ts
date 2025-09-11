@@ -5,7 +5,7 @@ import { authAppStrings } from "@your-org/web-auth/strings";
 
 export async function registerUser(
   page: Page,
-  email?: string
+  email?: string,
 ): Promise<string> {
   const userEmail = email || getUniqueEmail();
 
@@ -14,17 +14,17 @@ export async function registerUser(
 
   // signup
   await expect(
-    getByString(page, authAppStrings.saflib_login_page.log_into_your_account)
+    getByString(page, authAppStrings.saflib_login_page.log_into_your_account),
   ).toBeVisible();
   await getByString(page, authAppStrings.saflib_login_page.sign_up_now).click();
   await expect(
-    getByString(page, authAppStrings.saflib_register_page.create_your_account)
+    getByString(page, authAppStrings.saflib_register_page.create_your_account),
   ).toBeVisible();
   await getByString(page, authAppStrings.saflib_register_page.email).fill(
-    userEmail
+    userEmail,
   );
   await getByString(page, authAppStrings.saflib_register_page.password).fill(
-    "asdfasdf"
+    "asdfasdf",
   );
   console.log("register with", {
     email: userEmail,
@@ -32,7 +32,7 @@ export async function registerUser(
   });
   await getByString(
     page,
-    authAppStrings.saflib_register_page.confirm_password
+    authAppStrings.saflib_register_page.confirm_password,
   ).fill("asdfasdf");
   await getByString(page, authAppStrings.saflib_register_page.register).click();
   await getByString(page, "Stub Page").waitFor();

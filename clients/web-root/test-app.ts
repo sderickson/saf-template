@@ -7,7 +7,7 @@ import { webCommonStrings } from "@your-org/web-common/strings";
 
 export const mountTestApp = <C extends Component>(
   Component: C,
-  options: ComponentMountingOptions<C> = {}
+  options: ComponentMountingOptions<C> = {},
 ) => {
   return mountWithPlugins(Component, options, {
     router,
