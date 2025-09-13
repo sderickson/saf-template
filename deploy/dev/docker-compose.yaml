@@ -24,6 +24,11 @@ services:
       dockerfile: ./clients/spas/Dockerfile
     environment:
       - CLIENT_SUBDOMAINS=${CLIENT_SUBDOMAINS}
+      - DEPLOYMENT_NAME=${DEPLOYMENT_NAME}
+      - DOMAIN=${DOMAIN}
+      - PROTOCOL=${PROTOCOL}
+      - SERVICE_SUBDOMAINS=${SERVICE_SUBDOMAINS}
+      - TZ=${TZ}
     volumes:
       - ../../clients/:/app/clients/
       - ../../saflib/:/app/saflib/

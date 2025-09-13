@@ -1,7 +1,8 @@
-import { createAuthRouter } from "@saflib/auth";
-import { linkToHref } from "@saflib/links";
+import { createAuthRouter as createAuthRouterFn } from "@saflib/auth";
+import { linkToHrefWithHost } from "@saflib/vue";
 import { rootLinks } from "@your-org/web-root-links";
 
-export const router = createAuthRouter({
-  defaultRedirect: linkToHref(rootLinks.home),
-});
+export const createAuthRouter = () =>
+  createAuthRouterFn({
+    defaultRedirect: linkToHrefWithHost(rootLinks.home),
+  });

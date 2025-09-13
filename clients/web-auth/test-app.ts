@@ -1,7 +1,7 @@
 import { mountWithPlugins } from "@saflib/vue/testing";
 import type { ComponentMountingOptions } from "@vue/test-utils";
 import type { Component } from "vue";
-import { router } from "./router.ts";
+import { createAuthRouter } from "./router.ts";
 import { authAppStrings } from "./strings.ts";
 import { webCommonStrings } from "@your-org/web-common/strings";
 
@@ -10,7 +10,7 @@ export const mountTestApp = <C extends Component>(
   options: ComponentMountingOptions<C> = {},
 ) => {
   return mountWithPlugins(Component, options, {
-    router,
+    router: createAuthRouter(),
     i18nMessages: {
       ...authAppStrings,
       ...webCommonStrings,
