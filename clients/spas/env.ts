@@ -49,6 +49,4 @@ export interface ClientsEnvSchema {
 /**
  * `process.env` casted to the `ClientsEnvSchema` type.
  */
-export const typedEnv = (globalThis.process
-  ? process.env
-  : {}) as unknown as ClientsEnvSchema;
+export const typedEnv = (globalThis.process ? process.env : {}) as unknown as ClientsEnvSchema;
