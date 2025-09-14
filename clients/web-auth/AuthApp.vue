@@ -11,7 +11,7 @@
         />
       </template>
       <template #append>
-        <v-btn href="http://docker.localhost/">Go back</v-btn>
+        <v-btn :href="homeLink">Go back</v-btn>
       </template>
     </v-app-bar>
     <v-main>
@@ -32,6 +32,9 @@
 
 <script setup lang="ts">
 import { nav_logo } from "@your-org/web-common";
+import { linkToHrefWithHost } from "@saflib/vue";
+
+const homeLink = linkToHrefWithHost({ subdomain: "", path: "/" });
 </script>
 
 <style scoped></style>

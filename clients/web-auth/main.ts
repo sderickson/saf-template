@@ -1,12 +1,14 @@
 import { createVueApp, setClientName } from "@saflib/vue";
 import App from "./AuthApp.vue";
 import { vuetifyConfig } from "@your-org/web-common";
-import { router } from "./router";
+import { createAuthRouter } from "./router";
 import { authAppStrings } from "./strings";
 import { webCommonStrings } from "@your-org/web-common/strings";
 
+setClientName("auth");
+
 export const main = () => {
-  setClientName("web-auth");
+  const router = createAuthRouter();
   createVueApp(App, {
     router,
     vuetifyConfig,
