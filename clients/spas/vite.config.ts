@@ -4,7 +4,6 @@ import path from "path";
 import { validateEnv } from "@saflib/env";
 import envSchema from "./env.schema.combined.json" with { type: "json" };
 
-// TODO: Make sure this works
 validateEnv(process.env, envSchema);
 const monorepoRoot = path.resolve(import.meta.dirname, "../..");
 
