@@ -1,16 +1,9 @@
 import {
-  CopyStepMachine,
-  PromptStepMachine,
   defineWorkflow,
   step,
-  type ParsePackageNameOutput,
-  parsePackageName,
-  makeLineReplace,
-  CommandStepMachine,
+  makeWorkflowMachine,
 } from "@saflib/workflows";
-import path from "node:path";
-
-const sourceDir = path.join(import.meta.dirname, "template");
+import { AddSpaWorkflowDefinition } from "@saflib/vue/workflows";
 
 const input = [
   {
@@ -55,8 +48,31 @@ export const AddProductWorkflowDefinition = defineWorkflow<
   },
 
   steps: [
-    
+    step(makeWorkflowMachine(AddSpaWorkflowDefinition), ({ context }) => ({
+      productName: context.productName,
+      subdomainName: "root",
+    })),
 
+    step(makeWorkflowMachine(AddSpaWorkflowDefinition), ({ context }) => ({
+      productName: context.productName,
+      subdomainName: "admin",
+    })),
 
+    step(makeWorkflowMachine(AddSpaWorkflowDefinition), ({ context }) => ({
+      productName: context.productName,
+      subdomainName: "app",
+    })),
+
+    step(makeWorkflowMachine(AddSpaWorkflowDefinition), ({ context }) => ({
+      productName: context.productName,
+      subdomainName: "auth",
+    })),
+
+    step(makeWorkflowMachine(AddSpaWorkflowDefinition), ({ context }) => ({
+      productName: context.productName,
+      subdomainName: "account",
+    })),
   ],
 });
+
+export default AddProductWorkflowDefinition;
