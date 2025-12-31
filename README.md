@@ -11,7 +11,31 @@ This is a template repository to create complex web applications using SAF.
 2. Install npm or similar. Your Node version must be 22 or higher. Run `npm install`.
 3. Install docker.
 4. Replace all "your-org" strings with your GitHub (or similar) user/organization name.
-5. Find all "TODO" strings outside of `saflib/` and follow their instructions.
+5. Run `npm install` in the root directory.
+
+At this point you're ready to initialize the product you are building. SAF comes with a workflow to set you up with a basic suite of SPAs, an identity and product service, and more. This will use the [workflow tool](https://workflows.saf-demo.online/) to guide and automate the process.
+
+## Running with Cursor
+
+To fully automate the process, you can use Cursor. Have a paid account, install Cursor CLI on your machine, and make sure you're logged in. Then run:
+
+```bash
+npm exec saf-workflow kickoff product/init <productName> -- -r cursor
+```
+
+To understand more what this will do before you run it, see the [product/init workflow](https://github.com/sderickson/saflib/blob/main/product/workflows/init.ts).
+
+## Running it yourself
+
+A great deal is still automated, but if you don't have or want to use Cursor, or you want to understand more what it is to build a frontend with SAF, you can have the workflow prompt you instead of an agent.
+
+```bash
+npm exec saf-workflow kickoff product/init <productName>
+```
+
+## Managing git commits
+
+The workflow can be set up to automatically commit changes to git. To do this, include `-v git` in the command. This works with either of the above methods.
 
 # Testing
 
@@ -20,8 +44,8 @@ This is a template repository to create complex web applications using SAF.
   - Run `npm run test`.
 
 - **Run site locally**
-  - In `deploy/dev`, run `npm run dev -- --build`. Navigate to `http://docker.localhost/` in your browser to test the stub site.
-  - In `deploy/prod`, run `npm run build`, and then `npm run prod-local`. Navigate to `http://docker.localhost/` in your browser to test the production build locally.
+  - In `{productName}/dev`, run `npm run dev`. Navigate to `http://{productName}.docker.localhost/` in your browser to test the stub site.
+  - In `deploy/prod`, run `npm run build`, and then `npm run prod-local`. Navigate to `http://{productName}.docker.localhost/` in your browser to test the production build locally.
 
 - **Run e2e tests**
   - With `npm run prod-local` still running, run `npm run test:e2e`.
