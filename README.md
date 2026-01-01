@@ -30,26 +30,28 @@ To set up the various SPAs and backend services, you'll be using the [workflow t
 To fully automate the process, you can use Cursor. Have a paid account, install Cursor CLI on your machine, and make sure you're logged in. Then run:
 
 ```bash
-npm exec saf-workflow kickoff product/init <productName> -- -r cursor
+npm exec saf-workflow kickoff product/init <product-name> -- -r cursor
 ```
 
 To understand more what this will do before you run it, see the [product/init workflow](https://github.com/sderickson/saflib/blob/main/product/workflows/init.ts).
 
 ### Running it yourself
 
-A great deal is still automated, but if you don't have or want to use Cursor, or you want to understand more what it is to build a frontend with SAF, you can have the workflow prompt you instead of an agent.
+If you don't have or want to use Cursor, or you want to understand more what it is to build a frontend with SAF, you can have the workflow prompt you instead of an agent.
 
 ```bash
 npm exec saf-workflow kickoff product/init <productName>
 ```
 
-Follow the instructions nad run `npm exec saf-workflow next` after each step.
+Follow the prompt, running `npm exec saf-workflow next` to continue to the next.
 
-## Managing git commits
+### Managing git commits
 
-The workflow can be set up to automatically commit changes to git. To do this, include `-v git` in the command. This works with either of the above methods. Make sure to set up a branch beforehand if you don't want to commit to main.
+The workflow can commit changes to git along the way, breaking the changes into much more reasonably-sized commits. To do this, include `-v git` in the command. This works with either of the above methods. Make sure to set up a branch beforehand if you don't want to commit to main.
 
 # Test
+
+Once you have completed the `product/init` workflow, you can run various tests to make sure everything is working.
 
 - **Make sure static tests pass**
   - Run `npm run typecheck`.
@@ -59,20 +61,23 @@ The workflow can be set up to automatically commit changes to git. To do this, i
   - In `{product-name}/dev`, run `npm run dev`. Navigate to `http://{product-name}.docker.localhost/` in your browser to test the stub site.
   - In `deploy`, run `npm run build`, and then `npm run prod-local`. Navigate to `http://{productName}.docker.localhost/` in your browser to test the production build locally.
 
-- **Run e2e tests**
-  - With `npm run prod-local` still running, run `npm run test:e2e`.
-
 # Deploy
 
-To deploy your site to production, follow the instructions and fill out the values in `deploy/env.remote`. You'll need a server, domain, and container registry. I use [DigitalOcean](https://www.digitalocean.com/), [Namecheap](https://www.namecheap.com/), and [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry), but any providers will work.
+## Host and Domain
+
+To deploy your site to production, open `deploy/env.remote` and fill out the values according to the instructions there. You'll need a server, domain, and container registry. I use [DigitalOcean](https://www.digitalocean.com/), [Namecheap](https://www.namecheap.com/), and [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry), but any similar providers should work.
 
 You'll also need to edit the `.env.prod` file in `deploy/remote-assets` , updating the "TODO" fields with the domain name that you set up, and the email addresses you want to be admins, comma separated.
 
-- **Deploy to production**
-  Once you've done all the TODOs in `deploy`, including having a remote instance to deploy to (ideally with a domain pointing to it), then:
-  - In `deploy`, Run:
-    - `npm run remote-purge` to enforce a clean slate, then
-    - `npm run remote-setup` to install basic dependencies, and finally
-    - `npm run full-deploy` to build, push, pull, sync, and deploy to production
+## Deploy to Prod
+
+Once you've done all the TODOs in `deploy`, including having a remote instance to deploy to (ideally with a domain pointing to it), then run the following commands:
+
+```bash
+cd deploy
+npm run remote-purge # uninstalls any existing dependencies
+npm run remote-setup # installs basic dependencies (docker, etc)
+npm run full-deploy  # builds images, delivers via the container registry, and spins up docker production containers
+```
 
 That's it! You should now be able to run workflows to build out your site, and have all the steps to run tests and deploy changes.
