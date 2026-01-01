@@ -18,14 +18,14 @@ Once you have those:
 2. Update `package.json`.
    - Set the name to `@<organization-name>/<product-name>`.
    - Update all "TODO" fields according to [npm docs](https://docs.npmjs.com/cli/v10/configuring-npm/package-json).
-3. Run `nvm use && npm install`.
+3. Install [nvm](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating) and run `nvm use && npm install`.
 4. Install and run [Docker](https://docs.docker.com/engine/install/).
 
 ## Initialize the product
 
 To set up the various SPAs and backend services, you'll be using the [workflow tool](https://workflows.saf-demo.online/) to guide and automate the process.
 
-## Running with Cursor
+### Running with Cursor
 
 To fully automate the process, you can use Cursor. Have a paid account, install Cursor CLI on your machine, and make sure you're logged in. Then run:
 
@@ -35,7 +35,7 @@ npm exec saf-workflow kickoff product/init <productName> -- -r cursor
 
 To understand more what this will do before you run it, see the [product/init workflow](https://github.com/sderickson/saflib/blob/main/product/workflows/init.ts).
 
-## Running it yourself
+### Running it yourself
 
 A great deal is still automated, but if you don't have or want to use Cursor, or you want to understand more what it is to build a frontend with SAF, you can have the workflow prompt you instead of an agent.
 
