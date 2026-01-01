@@ -10,16 +10,14 @@ This is a template repository to use SAF. Create a new repository with it and fo
 
 ## Set up repository and dependencies
 
-To instantiate a new product you'll need an organization name and a product name. Your organization name will typically be the same as your repository name, and those will either be the same as your product or company name. The organization name will prefix each package name in the repos, and help distinguish packages in the monorepo from third party packages.
+To instantiate a new product you'll need an organization name and a product name. Your organization name will typically be the same as your repository name, and those will either be the same as your product name, company name, or however you want to scope the repo. The organization name will prefix each package name in the repos, and help distinguish packages in the monorepo from third party packages.
 
 Once you have those:
 
 1. Create a new repository from this template.
 2. Update `package.json`.
-
-- Set the name to `@<organization-name>/<product-name>`.
-- Update all "TODO" fields according to [npm docs](https://docs.npmjs.com/cli/v10/configuring-npm/package-json).
-
+   - Set the name to `@<organization-name>/<product-name>`.
+   - Update all "TODO" fields according to [npm docs](https://docs.npmjs.com/cli/v10/configuring-npm/package-json).
 3. Run `nvm use && npm install`.
 4. Install and run [Docker](https://docs.docker.com/engine/install/).
 
