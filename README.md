@@ -45,14 +45,14 @@ The workflow can be set up to automatically commit changes to git. To do this, i
 
 - **Run site locally**
   - In `{productName}/dev`, run `npm run dev`. Navigate to `http://{productName}.docker.localhost/` in your browser to test the stub site.
-  - In `deploy/prod`, run `npm run build`, and then `npm run prod-local`. Navigate to `http://{productName}.docker.localhost/` in your browser to test the production build locally.
+  - In `deploy`, run `npm run build`, and then `npm run prod-local`. Navigate to `http://{productName}.docker.localhost/` in your browser to test the production build locally.
 
 - **Run e2e tests**
   - With `npm run prod-local` still running, run `npm run test:e2e`.
 
 - **Deploy to production**
-  Once you've done all the TODOs in `deploy/prod`, including having a remote instance to deploy to (ideally with a domain pointing to it), then:
-  - In `deploy/prod`, Run:
+  Once you've done all the TODOs in `deploy`, including having a remote instance to deploy to (ideally with a domain pointing to it), then:
+  - In `deploy`, Run:
     - `npm run remote-purge` to enforce a clean slate, then
     - `npm run remote-setup` to install basic dependencies, and finally
     - `npm run full-deploy` to build, push, pull, sync, and deploy to production
