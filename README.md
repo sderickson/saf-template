@@ -1,6 +1,6 @@
 # SAF Template Repository
 
-This is a template repository to use SAF. Create a new repository with it and follow the instructions to initialize a SAF-based web application which can make use of the [workflow tool](https://workflows.saf-demo.online/) to rapidly build and deploy high-quality LLM-assisted code.
+Use this template to set up a SAF-based web application and use its [workflow tool](https://workflows.saf-demo.online/) to rapidly build and deploy high-quality LLM-assisted code.
 
 - [SAF library docs](https://docs.saf-demo.online).
 - [SAF library source](https://github.com/sderickson/saflib).
@@ -8,13 +8,17 @@ This is a template repository to use SAF. Create a new repository with it and fo
 
 # Setup
 
-## Set up repository and dependencies
+## Naming
 
 To instantiate a new product you'll need an organization name and a product name. Your organization name will typically be the same as your repository name, and those will either be the same as your product name, company name, or however you want to scope the repo. The organization name will prefix each package name in the repos, and help distinguish packages in the monorepo from third party packages.
 
-Once you have those:
+This template and SAF workflows are set up to support multiple products in the same repository. So if you plan on building more than one product in the repo, you'll want the organization name to be something different than the product name.
 
-1. Create a new repository from this template.
+## Set up repository and dependencies
+
+Once you have your organization name and product name:
+
+1. Create a new repository from this template with the same name as your organization.
 2. Update `package.json`.
    - Set the name to `@<organization-name>/<product-name>`.
    - Update all "TODO" fields according to [npm docs](https://docs.npmjs.com/cli/v10/configuring-npm/package-json).
@@ -81,3 +85,26 @@ npm run full-deploy  # builds images, delivers via the container registry, and s
 ```
 
 That's it! You should now be able to run workflows to build out your site, and have all the steps to run tests and deploy changes.
+
+## Test Prod
+
+Try doing these things to make sure everything works:
+
+- Register a new user.
+- Go to the user's account page and change their name and their password.
+- Log out and log back in with the new password.
+- Register as an admin user and make sure there's a link to the admin SPA from the app SPA.
+
+You can also validate your email, but these steps don't include setting up emails so you'll need to check the docker logs for the auth link when it's generated.
+
+# Next Steps
+
+To actually build some functionality, use the SAF workflows. See the [SAF docs](https://docs.saf-demo.online/) for the list of workflows, but as an example to set up a basic TODO app, you might use:
+
+- [@saflib/openapi](https://docs.saf-demo.online/openapi/docs/workflows/) to create schemas (business objects) and routes (API endpoints).
+- [@saflib/drizzle](https://docs.saf-demo.online/drizzle/docs/workflows/) to create database schemas and queries.
+- [@saflib/express](https://docs.saf-demo.online/express/docs/workflows/) to create handlers for the routes, using database queries.
+- [@saflib/sdk](https://github.com/sderickson/saflib/tree/main/sdk/workflows) to create Tanstack query and mutation functions for the routes, and components which are tightly coupled to the API (displays and forms for the business objects).
+- [@saflib/vue](https://github.com/sderickson/saflib/tree/main/vue/workflows) to create pages in the SPA, which load data using the Tanstack queries and render the sdk components.
+
+See the workflow docs for how to run these workflows [manually](https://workflows.saf-demo.online/manual-testing.html#do-the-work-yourself) or [with an agent](https://workflows.saf-demo.online/with-an-agent.html).
