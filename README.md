@@ -1,19 +1,31 @@
 # SAF Template Repository
 
-This is a template repository to create complex web applications using SAF.
+This is a template repository to use SAF. Create a new repository with it and follow the instructions to initialize a SAF-based web application which can make use of the [workflow tool](https://workflows.saf-demo.online/) to rapidly build and deploy high-quality LLM-assisted code.
 
-- Shared logic: [SAF library repository](https://github.com/your-org/saflib).
-- Information about SAF: [https://saf-demo.online](https://saf-demo.online) ([src](https://github.com/your-org/saf-2025)).
+- [SAF library docs](https://docs.saf-demo.online).
+- [SAF library source](https://github.com/sderickson/saflib).
+- [Workflow tool docs](https://workflows.saf-demo.online/).
 
 # Setup
 
-1. Clone this repo.
-2. Install npm or similar. Your Node version must be 22 or higher. Run `npm install`.
-3. Install docker.
-4. Replace all "your-org" strings with your GitHub (or similar) user/organization name.
-5. Run `npm install` in the root directory.
+## Set up repository and dependencies
 
-At this point you're ready to initialize the product you are building. SAF comes with a workflow to set you up with a basic suite of SPAs, an identity and product service, and more. This will use the [workflow tool](https://workflows.saf-demo.online/) to guide and automate the process.
+To instantiate a new product you'll need an organization name and a product name. Your organization name will typically be the same as your repository name, and those will either be the same as your product or company name. The organization name will prefix each package name in the repos, and help distinguish packages in the monorepo from third party packages.
+
+Once you have those:
+
+1. Create a new repository from this template.
+2. Update `package.json`.
+
+- Set the name to `@<organization-name>/<product-name>`.
+- Update all "TODO" fields according to [npm docs](https://docs.npmjs.com/cli/v10/configuring-npm/package-json).
+
+3. Run `nvm use && npm install`.
+4. Install and run [Docker](https://docs.docker.com/engine/install/).
+
+## Initialize the product
+
+To set up the various SPAs and backend services, you'll be using the [workflow tool](https://workflows.saf-demo.online/) to guide and automate the process.
 
 ## Running with Cursor
 
@@ -33,22 +45,28 @@ A great deal is still automated, but if you don't have or want to use Cursor, or
 npm exec saf-workflow kickoff product/init <productName>
 ```
 
+Follow the instructions nad run `npm exec saf-workflow next` after each step.
+
 ## Managing git commits
 
-The workflow can be set up to automatically commit changes to git. To do this, include `-v git` in the command. This works with either of the above methods.
+The workflow can be set up to automatically commit changes to git. To do this, include `-v git` in the command. This works with either of the above methods. Make sure to set up a branch beforehand if you don't want to commit to main.
 
-# Testing
+# Test
 
 - **Make sure static tests pass**
   - Run `npm run typecheck`.
   - Run `npm run test`.
 
 - **Run site locally**
-  - In `{productName}/dev`, run `npm run dev`. Navigate to `http://{productName}.docker.localhost/` in your browser to test the stub site.
+  - In `{product-name}/dev`, run `npm run dev`. Navigate to `http://{product-name}.docker.localhost/` in your browser to test the stub site.
   - In `deploy`, run `npm run build`, and then `npm run prod-local`. Navigate to `http://{productName}.docker.localhost/` in your browser to test the production build locally.
 
 - **Run e2e tests**
   - With `npm run prod-local` still running, run `npm run test:e2e`.
+
+# Deploy
+
+To deploy your site to production, follow the instructions and fill out the values in `deploy/env.remote`. You'll need a server, domain, and container registry. I use [DigitalOcean](https://www.digitalocean.com/), [Namecheap](https://www.namecheap.com/), and [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry), but any providers will work.
 
 - **Deploy to production**
   Once you've done all the TODOs in `deploy`, including having a remote instance to deploy to (ideally with a domain pointing to it), then:
