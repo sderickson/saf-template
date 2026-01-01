@@ -20,7 +20,7 @@ Once you have your organization name and product name:
 
 1. Create a new repository from this template with the same name as your organization.
 2. Update `package.json`.
-   - Set the name to `@<organization-name>/<product-name>`.
+   - Set the name to `@<organization-name>/<organization-name>`.
    - Update all "TODO" fields according to [npm docs](https://docs.npmjs.com/cli/v10/configuring-npm/package-json).
 3. Install [nvm](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating) and run `nvm use && npm install`.
 4. Install and run [Docker](https://docs.docker.com/engine/install/).
