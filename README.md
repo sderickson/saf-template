@@ -68,6 +68,8 @@ The workflow can be set up to automatically commit changes to git. To do this, i
 
 To deploy your site to production, follow the instructions and fill out the values in `deploy/env.remote`. You'll need a server, domain, and container registry. I use [DigitalOcean](https://www.digitalocean.com/), [Namecheap](https://www.namecheap.com/), and [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry), but any providers will work.
 
+You'll also need to edit the `.env.prod` file in `deploy/remote-assets` , updating the "TODO" fields with the domain name that you set up, and the email addresses you want to be admins, comma separated.
+
 - **Deploy to production**
   Once you've done all the TODOs in `deploy`, including having a remote instance to deploy to (ideally with a domain pointing to it), then:
   - In `deploy`, Run:
