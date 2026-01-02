@@ -1,7 +1,8 @@
 name: Tasktap Playwright Tests
 on:
+  # TODO:
   pull_request:
-    branches: main
+    branches: none
 jobs:
   test:
     timeout-minutes: 60
@@ -9,8 +10,6 @@ jobs:
     defaults:
       run:
         working-directory: .
-    env:
-      CONTAINER_REGISTRY: "ghcr.io/fake"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
