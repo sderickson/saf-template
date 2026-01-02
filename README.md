@@ -51,7 +51,7 @@ Follow the prompt, running `npm exec saf-workflow next` to continue to the next.
 
 ### Managing git commits
 
-The workflow can commit changes to git along the way, breaking the changes into much more reasonably-sized commits. To do this, include `-v git` in the command. This works with either of the above methods. Make sure to set up a branch beforehand if you don't want to commit to main.
+The workflow can commit changes to git along the way, for more reasonably-sized changesets. To do this, include `-v git` in the command. This works with either of the above methods. Make sure to set up a branch beforehand if you don't want to commit to main.
 
 # Test
 
@@ -64,6 +64,8 @@ Once you have completed the `product/init` workflow, you can run various tests t
 - **Run site locally**
   - In `{product-name}/dev`, run `npm run dev`. Navigate to `http://{product-name}.docker.localhost/` in your browser to test the stub site.
   - In `deploy`, run `npm run build`, and then `npm run prod-local`. Navigate to `http://{productName}.docker.localhost/` in your browser to test the production build locally.
+
+At this point you should be able to make changes and see them reflected in the browser. If you run `npm run dev`, the frontend uses Vite's HMR so changes will be reflected in real time. Server-side changes will require a dev server restart, and seeing any changes in `prod-local` will require another `npm run build`.
 
 # Deploy
 
@@ -99,12 +101,14 @@ You can also validate your email, but these steps don't include setting up email
 
 # Next Steps
 
-To actually build some functionality, use the SAF workflows. See the [SAF docs](https://docs.saf-demo.online/) for the list of workflows, but as an example to set up a basic TODO app, you might use:
+To actually build some functionality, use the SAF workflows. See the [SAF docs](https://docs.saf-demo.online/) for the list of workflows, but a common set might include the following
 
-- [@saflib/openapi](https://docs.saf-demo.online/openapi/docs/workflows/) to create schemas (business objects) and routes (API endpoints).
-- [@saflib/drizzle](https://docs.saf-demo.online/drizzle/docs/workflows/) to create database schemas and queries.
-- [@saflib/express](https://docs.saf-demo.online/express/docs/workflows/) to create handlers for the routes, using database queries.
-- [@saflib/sdk](https://github.com/sderickson/saflib/tree/main/sdk/workflows) to create Tanstack query and mutation functions for the routes, and components which are tightly coupled to the API (displays and forms for the business objects).
-- [@saflib/vue](https://github.com/sderickson/saflib/tree/main/vue/workflows) to create pages in the SPA, which load data using the Tanstack queries and render the sdk components.
+| Repo Path                   | SAF Package                                                                 | Use Workflows to...                                                                                                                                             |
+| --------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <product-name>/service/spec | [@saflib/openapi](https://docs.saf-demo.online/openapi/docs/workflows/)     | Create schemas (business objects) and routes (API endpoints).                                                                                                   |
+| <product-name>/service/db   | [@saflib/drizzle](https://docs.saf-demo.online/drizzle/docs/workflows/)     | Create database schemas and queries.                                                                                                                            |
+| <product-name>/service/http | [@saflib/express](https://docs.saf-demo.online/express/docs/workflows/)     | Create handlers for the routes, using database queries.                                                                                                         |
+| <product-name>/service/sdk  | [@saflib/sdk](https://github.com/sderickson/saflib/tree/main/sdk/workflows) | Create Tanstack query and mutation functions for the routes, and components which are tightly coupled to the API (displays and forms for the business objects). |
+| <product-name>/clients/app  | [@saflib/vue](https://github.com/sderickson/saflib/tree/main/vue/workflows) | Create pages in the SPA, which load data using the Tanstack queries and render the sdk components.                                                              |
 
 See the workflow docs for how to run these workflows [manually](https://workflows.saf-demo.online/manual-testing.html#do-the-work-yourself) or [with an agent](https://workflows.saf-demo.online/with-an-agent.html).
