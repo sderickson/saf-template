@@ -1,5 +1,5 @@
 {
-  "name": "@your-org/your-product",
+  "name": "@your-org/your-org",
   "description": "TODO",
   "type": "module",
   "scripts": {
@@ -14,10 +14,8 @@
   },
   "author": "TODO",
   "workspaces": [
-    "clients/**",
     "deploy/**",
-    "saflib/**",
-    "services/**"
+    "saflib/**"
   ],
   "engines": {
     "node": ">=22"
