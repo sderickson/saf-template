@@ -9,6 +9,8 @@ jobs:
     defaults:
       run:
         working-directory: .
+    env:
+      CONTAINER_REGISTRY: "ghcr.io/sderickson"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -26,7 +28,7 @@ jobs:
         run: npm run build-no-generate
         working-directory: ./deploy
       - name: Run server
-        run: env $(grep CONTAINER_REGISTRY ./env.remote) docker compose -f docker-compose.prod-local.yaml up &> last-docker-compose.log &
+        run: docker compose -f docker-compose.prod-local.yaml up &> last-docker-compose.log &
         working-directory: ./deploy
       # - name: Install Playwright Browsers
       #   run: npx playwright install --with-deps chromium firefox
