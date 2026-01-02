@@ -1,0 +1,24 @@
+{
+  "name": "@your-org/tasktap-root-spa",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./main.ts",
+    "./fixtures": "./fixtures.ts",
+    "./strings": "./strings.ts"
+  },
+  "scripts": {
+    "dev": "vite",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest --coverage",
+    "typecheck": "vue-tsc -b"
+  },
+  "dependencies": {
+    "@saflib/auth": "*",
+    "@saflib/auth-links": "*",
+    "@saflib/vue": "*",
+    "@your-org/tasktap-clients-common": "*",
+    "vue-router": "*"
+  }
+}

@@ -1,0 +1,48 @@
+import common.Caddyfile
+
+# Curried snippets
+
+(tasktap-api-proxy) {
+	import api-proxy {$TASKTAP_IDENTITY_SERVICE_HTTP_HOST} {args[0]}
+}
+
+(tasktap-admin-proxy) {
+	import admin-proxy {$TASKTAP_IDENTITY_SERVICE_HTTP_HOST} {args[0]}
+}
+
+# Subdomains
+
+{$PROTOCOL}://{$TASKTAP_DOMAIN} {
+	reverse_proxy clients:5173
+}
+
+{$PROTOCOL}://auth.{$TASKTAP_DOMAIN} {
+	reverse_proxy clients:5173
+}
+
+{$PROTOCOL}://app.{$TASKTAP_DOMAIN} {
+	reverse_proxy clients:5173
+}
+
+{$PROTOCOL}://account.{$TASKTAP_DOMAIN} {
+	reverse_proxy clients:5173
+}
+
+{$PROTOCOL}://admin.{$TASKTAP_DOMAIN} {
+	reverse_proxy clients:5173
+}
+
+{$PROTOCOL}://tasktap.{$TASKTAP_DOMAIN} {
+	import tasktap-api-proxy {$TASKTAP_SERVICE_HTTP_HOST}
+}
+
+{$PROTOCOL}://azurite.{$TASKTAP_DOMAIN} {
+	reverse_proxy azurite:10000 {
+		header_up Host azurite:10000
+		header_up X-Forwarded-Host {host}
+	}
+}
+
+{$PROTOCOL}://identity.{$TASKTAP_DOMAIN} {
+	import identity {$TASKTAP_DOMAIN} {$TASKTAP_IDENTITY_SERVICE_HTTP_HOST}
+}

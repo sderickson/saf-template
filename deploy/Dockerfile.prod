@@ -1,0 +1,9 @@
+FROM your-org-tasktap-clients:latest AS tasktap-builder
+
+COPY ./deploy/env.prod-local /app/env.prod-local
+RUN export $(grep -v "^#" /app/env.prod-local | xargs) && DOMAIN=${DOMAIN} CLIENT_SUBDOMAINS=${CLIENT_SUBDOMAINS} SERVICE_SUBDOMAINS=${SERVICE_SUBDOMAINS} npm run build
+
+FROM caddy:2.9.1
+
+COPY --from=tasktap-builder /app/tasktap/clients/build/dist /srv/tasktap-clients
+COPY ./deploy/remote-assets/config /etc/caddy/

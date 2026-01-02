@@ -15,7 +15,8 @@
   "author": "TODO",
   "workspaces": [
     "deploy/**",
-    "saflib/**"
+    "saflib/**",
+    "tasktap/**"
   ],
   "engines": {
     "node": ">=22"

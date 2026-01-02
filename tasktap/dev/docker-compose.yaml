@@ -1,0 +1,89 @@
+# common elements between dev and test
+services:
+  caddy:
+    image: caddy:2.9.1
+    ports:
+      - 80:80
+    volumes:
+      - ./caddy-config:/etc/caddy/
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      - TASKTAP_DOMAIN=${TASKTAP_DOMAIN}
+      - PROTOCOL=${PROTOCOL}
+      - TASKTAP_IDENTITY_SERVICE_HTTP_HOST=${TASKTAP_IDENTITY_SERVICE_HTTP_HOST}
+      - TASKTAP_SERVICE_HTTP_HOST=${TASKTAP_SERVICE_HTTP_HOST}
+    depends_on:
+      - clients
+
+  clients:
+    # Named for local dev, but doesn't get published; not needed for prod
+    image: your-org-tasktap-clients:latest
+    build:
+      context: ../..
+      dockerfile: ./tasktap/clients/build/Dockerfile
+    environment:
+      - CLIENT_SUBDOMAINS=${TASKTAP_CLIENT_SUBDOMAINS}
+      - DOMAIN=${TASKTAP_DOMAIN}
+      - DEPLOYMENT_NAME=${DEPLOYMENT_NAME}
+      - PROTOCOL=${PROTOCOL}
+      - SERVICE_SUBDOMAINS=${TASKTAP_SERVICE_SUBDOMAINS}
+      - TZ=${TZ}
+    volumes:
+      - ../../tasktap/clients/:/app/tasktap/clients/
+      - ../../saflib/:/app/saflib/
+      - ../../tasktap/service/sdk/:/app/tasktap/service/sdk/
+    command: npm run dev
+
+  tasktap-monolith:
+    image: ghcr.io/your-org/your-org-tasktap-monolith:latest
+    volumes:
+      - ../../tasktap/service/db/data:/app/tasktap/service/db/data
+      - ../../tasktap/service/cron/data:/app/tasktap/service/cron/data
+      - ../../tasktap/service/identity/data:/app/tasktap/service/identity/data
+      - tasktap_identity_http_cache:/app/saflib/identity/identity-http/data
+
+    build:
+      context: ../..
+      dockerfile: tasktap/service/monolith/Dockerfile
+
+    environment:
+      - ALLOW_DB_CREATION=true
+      - CLIENT_SUBDOMAINS=${TASKTAP_CLIENT_SUBDOMAINS}
+      - DEPLOYMENT_NAME=${DEPLOYMENT_NAME}
+      - DOMAIN=${TASKTAP_DOMAIN}
+      - MOCK_INTEGRATIONS=${MOCK_INTEGRATIONS}
+      - NODE_ENV=${NODE_ENV}
+      - PROTOCOL=${PROTOCOL}
+      - SERVICE_SUBDOMAINS=${TASKTAP_SERVICE_SUBDOMAINS}
+      - TZ=${TZ}
+      - SENTRY_DSN=${TASKTAP_SENTRY_DSN}
+
+      - IDENTITY_SERVICE_HTTP_HOST=${TASKTAP_IDENTITY_SERVICE_HTTP_HOST}
+      - IDENTITY_SERVICE_GRPC_HOST=${TASKTAP_IDENTITY_SERVICE_GRPC_HOST}
+      - IDENTITY_SERVICE_ADMIN_EMAILS=${TASKTAP_IDENTITY_SERVICE_ADMIN_EMAILS}
+      - IDENTITY_SERVICE_DISABLE_RATE_LIMITING=${TASKTAP_IDENTITY_SERVICE_DISABLE_RATE_LIMITING}
+
+      - NODEMAILER_TRANSPORT_CONFIG=${NODEMAILER_TRANSPORT_CONFIG}
+
+      - TASKTAP_SERVICE_HTTP_HOST=${TASKTAP_SERVICE_HTTP_HOST}
+
+      - AZURE_CLIENT_ID=${AZURE_CLIENT_ID}
+      - AZURE_HOT_BLOB_STORAGE_URL=${AZURE_HOT_BLOB_STORAGE_URL}
+      - AZURE_COLD_BLOB_STORAGE_URL=${AZURE_COLD_BLOB_STORAGE_URL}
+
+      - TRADEMARK=${TASKTAP_TRADEMARK}
+
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite
+    hostname: azurite
+    ports:
+      - "10000:10000"
+      - "10001:10001"
+      - "10002:10002"
+    command: "azurite-blob --blobHost 0.0.0.0 --loose"
+
+volumes:
+  caddy_data:
+  caddy_config:
+  tasktap_identity_http_cache:

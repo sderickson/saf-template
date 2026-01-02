@@ -1,0 +1,12 @@
+{
+  "name": "@your-org/tasktap-links",
+  "description": "Links for the tasktap root client",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "dependencies": {
+    "@saflib/links": "*"
+  }
+}

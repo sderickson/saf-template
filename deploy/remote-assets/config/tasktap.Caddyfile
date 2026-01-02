@@ -1,0 +1,55 @@
+# Curried snippets
+
+(power-up-spa) {
+	import spa /tasktap-clients {args[0]}
+}
+
+(power-up-api-proxy) {
+	import api-proxy {$TASKTAP_IDENTITY_SERVICE_HTTP_HOST} {args[0]}
+}
+
+(power-up-admin-proxy) {
+	import admin-proxy {$TASKTAP_IDENTITY_SERVICE_HTTP_HOST} {args[0]}
+}
+
+# Subdomains
+
+{$PROTOCOL}://{$TASKTAP_DOMAIN} {
+	import power-up-spa /root/index.html
+}
+
+{$PROTOCOL}://auth.{$TASKTAP_DOMAIN} {
+	import power-up-spa /auth/index.html
+}
+
+{$PROTOCOL}://app.{$TASKTAP_DOMAIN} {
+	import power-up-spa /app/index.html
+}
+
+{$PROTOCOL}://admin.{$TASKTAP_DOMAIN} {
+	import power-up-spa /admin/index.html
+}
+
+{$PROTOCOL}://account.{$TASKTAP_DOMAIN} {
+	import power-up-spa /account/index.html
+}
+
+{$PROTOCOL}://tasktap.{$TASKTAP_DOMAIN} {
+	import power-up-api-proxy {$TASKTAP_SERVICE_HTTP_HOST}
+}
+
+{$PROTOCOL}://grafana.{$TASKTAP_DOMAIN} {
+	import power-up-admin-proxy grafana:3000
+}
+
+{$PROTOCOL}://prometheus.{$TASKTAP_DOMAIN} {
+	import power-up-admin-proxy prometheus:9090
+}
+
+{$PROTOCOL}://identity.{$TASKTAP_DOMAIN} {
+	import identity {$TASKTAP_DOMAIN} {$TASKTAP_IDENTITY_SERVICE_HTTP_HOST}
+}
+
+{$TASKTAP_DOMAIN_REDIRECTS} {
+	import redirect {$TASKTAP_DOMAIN}
+}
