@@ -28,7 +28,7 @@ jobs:
         run: npm run build-no-generate
         working-directory: ./deploy
       - name: Run server
-        run: docker compose -f docker-compose.prod-local.yaml up &> last-docker-compose.log &
+        run: npm run prod-local &> last-docker-compose.log &
         working-directory: ./deploy
       # - name: Install Playwright Browsers
       #   run: npx playwright install --with-deps chromium firefox
