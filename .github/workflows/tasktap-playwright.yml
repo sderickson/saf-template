@@ -28,8 +28,8 @@ jobs:
       - name: Run server
         run: npm run prod-local &> last-docker-compose.log &
         working-directory: ./deploy
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps chromium firefox
+      # - name: Install Playwright Browsers
+      #   run: npx playwright install --with-deps chromium firefox
       - name: Run Playwright tests
         run: npm run test:e2e
       - name: Shut down
