@@ -1,7 +1,7 @@
 name: Tasktap Playwright Tests
 on:
   pull_request:
-    branches: []
+    branches: none
 jobs:
   test:
     timeout-minutes: 60
