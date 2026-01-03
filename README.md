@@ -29,15 +29,18 @@ Once you have your organization name and product name:
 
 To set up the various SPAs and backend services, you'll be using the [workflow tool](https://workflows.saf-demo.online/) to guide and automate the process.
 
-### Running with Cursor
+### Running with an Agent
 
-To fully automate the process, you can use Cursor. Have a paid account, install Cursor CLI on your machine, and make sure you're logged in. Then run:
+To fully automate the process, you can use any coding agent such as Cursor or Claude Code. Give the agent this prompt (substituting your product-name of choice):
 
 ```bash
-npm exec saf-workflow kickoff product/init <product-name> -- -r cursor
+Run the following command in the terminal and follow its instructions until completely done.
+npm exec saf-workflow kickoff product/init <product-name>
 ```
 
-To understand more what this will do before you run it, see the [product/init workflow](https://github.com/sderickson/saflib/blob/main/product/workflows/init.ts).
+Further reading:
+* [Workflow docs](https://workflows.saf-demo.online/with-an-agent.html#the-agent-invokes-the-workflow-tool) on running an agent with the tool.
+* [Workflow source](https://github.com/sderickson/saflib/blob/main/product/workflows/init.ts) for the product/init workflow.
 
 ### Running it yourself
 
