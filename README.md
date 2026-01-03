@@ -33,7 +33,7 @@ To set up the various SPAs and backend services, you'll be using the [workflow t
 
 To fully automate the process, you can use any coding agent such as Cursor or Claude Code. Give the agent this prompt (substituting your product-name of choice):
 
-```bash
+```
 Run the following command in the terminal and follow its instructions until completely done.
 npm exec saf-workflow kickoff product/init <product-name>
 ```
@@ -44,7 +44,7 @@ Further reading:
 
 ### Running it yourself
 
-If you don't have or want to use Cursor, or you want to understand more what it is to build a frontend with SAF, you can have the workflow prompt you instead of an agent.
+If you don't have or want to use an agent, or you want to understand more what it is to build a frontend with SAF, you can have the workflow prompt you instead.
 
 ```bash
 npm exec saf-workflow kickoff product/init <productName>
