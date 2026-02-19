@@ -58,7 +58,7 @@ The workflow can commit changes to git along the way, for more reasonably-sized 
 
 # Test
 
-Once you have completed the `product/init` workflow, you can run various tests to make sure everything is working.
+Once you have completed the `product/init` workflow, you can run various tests to make sure everything is working. For `deploy` (prod-local) to work, make sure to set up `env.remote`'s `CONTAINER_REGISTRY` variable at least, since even running locally depends on that. See "Deploy" below for more info.
 
 - **Make sure static tests pass**
   - Run `npm run typecheck`.
