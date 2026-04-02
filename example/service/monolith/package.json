@@ -1,0 +1,17 @@
+{
+  "name": "@your-org/example-monolith",
+  "type": "module",
+  "scripts": {
+    "start": "node --experimental-strip-types ./run.ts"
+  },
+  "exports": {},
+  "dependencies": {
+    "@saflib/env": "*",
+    "@saflib/monorepo": "*",
+    "@saflib/sentry": "*",
+    "@your-org/example-db": "*",
+    "@your-org/example-http": "*",
+    "@your-org/example-kratos-courier": "*",
+    "@your-org/example-service-common": "*"
+  }
+}

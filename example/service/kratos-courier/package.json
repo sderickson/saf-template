@@ -1,0 +1,15 @@
+{
+  "name": "@your-org/example-kratos-courier",
+  "description": "Shared Kratos HTTP courier callbacks for example",
+  "type": "module",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "dependencies": {
+    "@saflib/node": "*",
+    "@saflib/ory-kratos": "*"
+  },
+  "devDependencies": {
+    "@saflib/monorepo": "*"
+  }
+}

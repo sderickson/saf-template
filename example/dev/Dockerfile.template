@@ -1,0 +1,20 @@
+# syntax=docker/dockerfile:labs
+
+# Requires a local tag first: your-org/example-dev npm scripts run `docker build` on
+# example/clients/static-root before compose (compose builds services in parallel).
+# Logged-out example marketing site — same base image as deploy (example/clients/root).
+FROM your-org-example-static-root:latest AS static-root-builder
+RUN npm run build
+
+# Monorepo install once — workspace closure of your-org/example-dev (example static builds for this stack).
+FROM node:24-slim AS deps
+
+WORKDIR /app
+
+#{ copy_packages }#
+RUN npm install --omit=dev
+
+#{ copy_src }#
+
+FROM caddy:2.11.2
+COPY --from=static-root-builder /app/example/clients/root/.vitepress/dist /srv/example-static-root

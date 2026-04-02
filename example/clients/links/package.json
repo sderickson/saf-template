@@ -1,0 +1,12 @@
+{
+  "name": "@your-org/example-links",
+  "description": "Links for the example root client",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "dependencies": {
+    "@saflib/links": "*"
+  }
+}

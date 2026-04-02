@@ -1,0 +1,28 @@
+{
+  "name": "@your-org/example-clients-common",
+  "description": "Shared look-and-feel and utilities for web clients",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.ts",
+    "./components": "./components/index.ts",
+    "./components/example-layout": "./components/example-layout/ExampleLayout.vue",
+    "./vuetify-config": "./vuetify-config.ts",
+    "./strings": "./strings.ts",
+    "./i18n": "./i18n.ts",
+    "./fixtures": "./fixtures/index.ts",
+    "./playwright.config": "./playwright.config.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "vue-tsc -b"
+  },
+  "dependencies": {
+    "@saflib/vue": "*",
+    "@sentry/vue": "^10.21.0",
+    "@saflib/ory-kratos-sdk": "*",
+    "@your-org/example-spec": "*"
+  }
+}

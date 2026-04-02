@@ -1,0 +1,50 @@
+# Curried snippets
+
+(example-spa) {
+	import spa /example-clients {args[0]}
+}
+
+# Client subdomains
+
+{$EXAMPLE_PROTOCOL}://{$EXAMPLE_DOMAIN} {
+	import static-site /example-static-root /index.html
+}
+
+{$EXAMPLE_PROTOCOL}://auth.{$EXAMPLE_DOMAIN} {
+	import example-spa /auth/index.html
+}
+
+{$EXAMPLE_PROTOCOL}://app.{$EXAMPLE_DOMAIN} {
+	import example-spa /app/index.html
+}
+
+{$EXAMPLE_PROTOCOL}://admin.{$EXAMPLE_DOMAIN} {
+	import example-spa /admin/index.html
+}
+
+{$EXAMPLE_PROTOCOL}://account.{$EXAMPLE_DOMAIN} {
+	import example-spa /account/index.html
+}
+
+# API subdomains
+
+{$EXAMPLE_PROTOCOL}://example.{$EXAMPLE_DOMAIN} {
+	import cors {$DOMAIN}
+	import kratos-api-proxy {$EXAMPLE_SERVICE_HTTP_HOST}
+}
+
+{$EXAMPLE_PROTOCOL}://kratos.{$EXAMPLE_DOMAIN} {
+	import cors {$EXAMPLE_DOMAIN}
+	reverse_proxy kratos:4433
+}
+
+{$EXAMPLE_PROTOCOL}://grafana.{$EXAMPLE_DOMAIN} {
+	import cors {$EXAMPLE_DOMAIN}
+	reverse_proxy grafana:3000 {
+		import reverse_proxy_common
+	}
+}
+
+{$EXAMPLE_DOMAIN_REDIRECTS} {
+	import redirect {$EXAMPLE_DOMAIN}
+}

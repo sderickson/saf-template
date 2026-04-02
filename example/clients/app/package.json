@@ -1,0 +1,30 @@
+{
+  "name": "@your-org/example-app-spa",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./main.ts",
+    "./fixtures": "./fixtures.ts",
+    "./strings": "./strings.ts",
+    "./i18n": "./i18n.ts",
+    "./test-app": "./test-app.ts"
+  },
+  "scripts": {
+    "dev": "vite",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest --coverage",
+    "test:e2e": "npx playwright test",
+    "test:e2e:ui": "npx playwright test --ui",
+    "typecheck": "vue-tsc -b"
+  },
+  "dependencies": {
+    "@your-org/example-clients-common": "*",
+    "@your-org/example-links": "*",
+    "@your-org/example-sdk": "*",
+    "@saflib/ory-kratos-sdk": "*",
+    "@saflib/vue": "*",
+    "@saflib/links": "*",
+    "vue-router": "*"
+  }
+}
