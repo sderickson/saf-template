@@ -3,6 +3,7 @@ coverage
 **/saf-workflow-*
 Dockerfile
 .env
+**/git-hashes.json
 
 # Editor directories and files
 .vscode/*

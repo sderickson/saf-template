@@ -20,10 +20,10 @@
   "engines": {
     "node": ">=22"
   },
-  "devDependencies": {
-    "@saflib/monorepo": "*"
-  },
   "dependencies": {
     "prettier": "^3.6.2"
+  },
+  "devDependencies": {
+    "@saflib/monorepo": "*"
   }
 }
