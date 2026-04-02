@@ -1,9 +1,0 @@
-# syntax=docker/dockerfile:labs
-FROM node:24-slim AS builder
-
-WORKDIR /app
-#{ copy_packages }#
-RUN npm install --omit=dev
-#{ copy_src }#
-
-WORKDIR /app/example/clients/root

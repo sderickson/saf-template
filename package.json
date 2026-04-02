@@ -15,7 +15,6 @@
   "author": "TODO",
   "workspaces": [
     "deploy/**",
-    "example/**",
     "saflib/**"
   ],
   "engines": {
