@@ -25,11 +25,5 @@
   },
   "devDependencies": {
     "@saflib/monorepo": "*"
-  },
-  "overrides": {
-    "@tanstack/query-core": "5.85.9",
-    "@tanstack/vue-query": "5.85.9",
-    "drizzle-orm": "^0.45.1",
-    "vite": "^8.0.0"
   }
 }
