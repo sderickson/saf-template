@@ -1,3 +1,5 @@
+_**This repository is archived. See https://docs.saf-demo.online/ for instructions on how to initialize new SAF projects.**_
+
 # SAF Template Repository
 
 Use this template to set up a SAF-based web application and use its [workflow tool](https://workflows.saf-demo.online/) to rapidly build and deploy high-quality LLM-assisted code.
